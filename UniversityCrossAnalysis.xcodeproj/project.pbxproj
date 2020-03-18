@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E244C6424226E9B00A2888B /* ResultCHU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6324226E9B00A2888B /* ResultCHU.swift */; };
+		6E244C6624226EC100A2888B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6524226EC100A2888B /* Result.swift */; };
+		6E244C6824226EE400A2888B /* Gsat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6724226EE400A2888B /* Gsat.swift */; };
 		6EFC887B24226BE500654CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887A24226BE500654CF4 /* AppDelegate.swift */; };
 		6EFC887D24226BE500654CF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887C24226BE500654CF4 /* SceneDelegate.swift */; };
 		6EFC887F24226BE500654CF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887E24226BE500654CF4 /* ViewController.swift */; };
@@ -15,6 +18,8 @@
 		6EFC888724226BE500654CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EFC888524226BE500654CF4 /* LaunchScreen.storyboard */; };
 		6EFC889224226BE500654CF4 /* UniversityCrossAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC889124226BE500654CF4 /* UniversityCrossAnalysisTests.swift */; };
 		6EFC889D24226BE500654CF4 /* UniversityCrossAnalysisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC889C24226BE500654CF4 /* UniversityCrossAnalysisUITests.swift */; };
+		6EFC88B024226DC000654CF4 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC88AF24226DC000654CF4 /* Input.swift */; };
+		6EFC88B224226E4200654CF4 /* Grades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC88B124226E4200654CF4 /* Grades.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E244C6324226E9B00A2888B /* ResultCHU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCHU.swift; sourceTree = "<group>"; };
+		6E244C6524226EC100A2888B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		6E244C6724226EE400A2888B /* Gsat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gsat.swift; sourceTree = "<group>"; };
 		6EFC887724226BE500654CF4 /* UniversityCrossAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniversityCrossAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EFC887A24226BE500654CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EFC887C24226BE500654CF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +57,8 @@
 		6EFC889824226BE500654CF4 /* UniversityCrossAnalysisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UniversityCrossAnalysisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EFC889C24226BE500654CF4 /* UniversityCrossAnalysisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityCrossAnalysisUITests.swift; sourceTree = "<group>"; };
 		6EFC889E24226BE500654CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6EFC88AF24226DC000654CF4 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		6EFC88B124226E4200654CF4 /* Grades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grades.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +112,11 @@
 				6EFC887A24226BE500654CF4 /* AppDelegate.swift */,
 				6EFC887C24226BE500654CF4 /* SceneDelegate.swift */,
 				6EFC887E24226BE500654CF4 /* ViewController.swift */,
+				6EFC88AA24226CA300654CF4 /* Controller */,
+				6EFC88AD24226CC700654CF4 /* ViewModel */,
+				6EFC88AC24226CC000654CF4 /* Model */,
+				6EFC88AE24226CD200654CF4 /* Helper */,
+				6EFC88AB24226CAF00654CF4 /* View */,
 				6EFC888024226BE500654CF4 /* Main.storyboard */,
 				6EFC888324226BE500654CF4 /* Assets.xcassets */,
 				6EFC888524226BE500654CF4 /* LaunchScreen.storyboard */,
@@ -126,6 +141,46 @@
 				6EFC889E24226BE500654CF4 /* Info.plist */,
 			);
 			path = UniversityCrossAnalysisUITests;
+			sourceTree = "<group>";
+		};
+		6EFC88AA24226CA300654CF4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6EFC88AB24226CAF00654CF4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6EFC88AC24226CC000654CF4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6EFC88AF24226DC000654CF4 /* Input.swift */,
+				6EFC88B124226E4200654CF4 /* Grades.swift */,
+				6E244C6324226E9B00A2888B /* ResultCHU.swift */,
+				6E244C6524226EC100A2888B /* Result.swift */,
+				6E244C6724226EE400A2888B /* Gsat.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6EFC88AD24226CC700654CF4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6EFC88AE24226CD200654CF4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,9 +314,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EFC88B224226E4200654CF4 /* Grades.swift in Sources */,
 				6EFC887F24226BE500654CF4 /* ViewController.swift in Sources */,
 				6EFC887B24226BE500654CF4 /* AppDelegate.swift in Sources */,
+				6EFC88B024226DC000654CF4 /* Input.swift in Sources */,
+				6E244C6824226EE400A2888B /* Gsat.swift in Sources */,
+				6E244C6624226EC100A2888B /* Result.swift in Sources */,
 				6EFC887D24226BE500654CF4 /* SceneDelegate.swift in Sources */,
+				6E244C6424226E9B00A2888B /* ResultCHU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
