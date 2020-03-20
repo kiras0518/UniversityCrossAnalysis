@@ -10,6 +10,11 @@
 		6E244C6424226E9B00A2888B /* ResultCHU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6324226E9B00A2888B /* ResultCHU.swift */; };
 		6E244C6624226EC100A2888B /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6524226EC100A2888B /* Result.swift */; };
 		6E244C6824226EE400A2888B /* Gsat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6724226EE400A2888B /* Gsat.swift */; };
+		6E244C6A242284F300A2888B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C69242284F300A2888B /* MainTabBarController.swift */; };
+		6EF599532424A25500D77F07 /* GsatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF599522424A25500D77F07 /* GsatViewController.swift */; };
+		6EF599552424A27C00D77F07 /* AstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF599542424A27C00D77F07 /* AstViewController.swift */; };
+		6EF599572424AA6100D77F07 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF599562424AA6100D77F07 /* UIView+Layout.swift */; };
+		6EF599592424B14200D77F07 /* ScreenConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF599582424B14200D77F07 /* ScreenConfigs.swift */; };
 		6EFC887B24226BE500654CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887A24226BE500654CF4 /* AppDelegate.swift */; };
 		6EFC887D24226BE500654CF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887C24226BE500654CF4 /* SceneDelegate.swift */; };
 		6EFC887F24226BE500654CF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFC887E24226BE500654CF4 /* ViewController.swift */; };
@@ -43,6 +48,11 @@
 		6E244C6324226E9B00A2888B /* ResultCHU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCHU.swift; sourceTree = "<group>"; };
 		6E244C6524226EC100A2888B /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		6E244C6724226EE400A2888B /* Gsat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gsat.swift; sourceTree = "<group>"; };
+		6E244C69242284F300A2888B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		6EF599522424A25500D77F07 /* GsatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GsatViewController.swift; sourceTree = "<group>"; };
+		6EF599542424A27C00D77F07 /* AstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstViewController.swift; sourceTree = "<group>"; };
+		6EF599562424AA6100D77F07 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		6EF599582424B14200D77F07 /* ScreenConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConfigs.swift; sourceTree = "<group>"; };
 		6EFC887724226BE500654CF4 /* UniversityCrossAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UniversityCrossAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EFC887A24226BE500654CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EFC887C24226BE500654CF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,11 +122,12 @@
 				6EFC887A24226BE500654CF4 /* AppDelegate.swift */,
 				6EFC887C24226BE500654CF4 /* SceneDelegate.swift */,
 				6EFC887E24226BE500654CF4 /* ViewController.swift */,
+				6E244C69242284F300A2888B /* MainTabBarController.swift */,
 				6EFC88AA24226CA300654CF4 /* Controller */,
 				6EFC88AD24226CC700654CF4 /* ViewModel */,
 				6EFC88AC24226CC000654CF4 /* Model */,
-				6EFC88AE24226CD200654CF4 /* Helper */,
 				6EFC88AB24226CAF00654CF4 /* View */,
+				6EFC88AE24226CD200654CF4 /* Helper */,
 				6EFC888024226BE500654CF4 /* Main.storyboard */,
 				6EFC888324226BE500654CF4 /* Assets.xcassets */,
 				6EFC888524226BE500654CF4 /* LaunchScreen.storyboard */,
@@ -146,6 +157,8 @@
 		6EFC88AA24226CA300654CF4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6EF599522424A25500D77F07 /* GsatViewController.swift */,
+				6EF599542424A27C00D77F07 /* AstViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -179,6 +192,8 @@
 		6EFC88AE24226CD200654CF4 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				6EF599562424AA6100D77F07 /* UIView+Layout.swift */,
+				6EF599582424B14200D77F07 /* ScreenConfigs.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -316,9 +331,14 @@
 			files = (
 				6EFC88B224226E4200654CF4 /* Grades.swift in Sources */,
 				6EFC887F24226BE500654CF4 /* ViewController.swift in Sources */,
+				6E244C6A242284F300A2888B /* MainTabBarController.swift in Sources */,
+				6EF599552424A27C00D77F07 /* AstViewController.swift in Sources */,
 				6EFC887B24226BE500654CF4 /* AppDelegate.swift in Sources */,
+				6EF599592424B14200D77F07 /* ScreenConfigs.swift in Sources */,
+				6EF599532424A25500D77F07 /* GsatViewController.swift in Sources */,
 				6EFC88B024226DC000654CF4 /* Input.swift in Sources */,
 				6E244C6824226EE400A2888B /* Gsat.swift in Sources */,
+				6EF599572424AA6100D77F07 /* UIView+Layout.swift in Sources */,
 				6E244C6624226EC100A2888B /* Result.swift in Sources */,
 				6EFC887D24226BE500654CF4 /* SceneDelegate.swift in Sources */,
 				6E244C6424226E9B00A2888B /* ResultCHU.swift in Sources */,
