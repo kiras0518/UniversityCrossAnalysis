@@ -11,10 +11,10 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
-       viewControllers = [createNavController(viewController: GsatViewController(), title: "學測分析", image: "")]
+       viewControllers = [templateNavController(viewController: GsatViewController(), title: "學測分析", image: "")]
     }
-    
-    func createNavController(viewController: UIViewController, title: String, image: String) -> UIViewController {
+   
+    func templateNavController(viewController: UIViewController, title: String, image: String) -> UIViewController {
         
         let navController = UINavigationController(rootViewController: viewController)
         

@@ -1,0 +1,6 @@
+framework module Pods_UniversityCrossAnalysis {
+  umbrella header "Pods-UniversityCrossAnalysis-umbrella.h"
+
+  export *
+  module * { export * }
+}

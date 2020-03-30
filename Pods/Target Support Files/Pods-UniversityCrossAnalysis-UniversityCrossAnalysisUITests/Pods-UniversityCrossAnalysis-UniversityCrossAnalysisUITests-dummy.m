@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_UniversityCrossAnalysis_UniversityCrossAnalysisUITests : NSObject
+@end
+@implementation PodsDummy_Pods_UniversityCrossAnalysis_UniversityCrossAnalysisUITests
+@end
