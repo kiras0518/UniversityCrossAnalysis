@@ -11,6 +11,39 @@ import Alamofire
 
 class GsatViewController: UIViewController {
     
+    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+    
+    lazy var scrollView: UIScrollView = {
+        let sv = UIScrollView(frame: .zero)
+        
+        sv.backgroundColor = .white
+        sv.frame = self.view.bounds
+        sv.contentSize = contentViewSize
+        sv.autoresizingMask = .flexibleHeight
+        sv.showsHorizontalScrollIndicator = true
+        sv.bounces = true
+        
+        return sv
+    }()
+    
+    lazy var containerView: UIView = {
+        let iv = UIView()
+        
+        iv.backgroundColor = .darkBColor
+        iv.frame.size = contentViewSize
+        
+        return iv
+    }()
+    
+    lazy var backView: UIView = {
+        let iv = UIView()
+        
+        iv.backgroundColor = .orangeColor
+        iv.layer.cornerRadius = 16
+        
+        return iv
+    }()
+    
     lazy var chineseTextField: UITextField = {
         let tf = UITextField()
         
@@ -18,7 +51,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "國文"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -31,7 +64,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "英文"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -44,7 +77,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "數學"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -57,7 +90,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "社會"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -70,7 +103,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "自然"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -83,7 +116,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "英聽"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -96,7 +129,7 @@ class GsatViewController: UIViewController {
         tf.layer.cornerRadius = 4
         tf.placeholder = "期望薪資"
         tf.textAlignment = .center
-        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
         
         return tf
@@ -104,21 +137,23 @@ class GsatViewController: UIViewController {
     
     lazy var doneButton: UIButton = {
         let bt = UIButton()
-        bt.backgroundColor = .cyan
-        bt.setTitle("送出", for: .normal)
+        bt.backgroundColor = .greenColor
+        bt.layer.cornerRadius = 4
+        bt.setTitle("開始分析", for: .normal)
         bt.addTarget(self, action: #selector(doneClick), for: .touchUpInside)
         
         return bt
     }()
     
     @objc func doneClick() {
+        
         //print("doneClick DONE")
-//        guard let chineseText = chineseTextField.text as? Int,
-//            let englishText = englishTextField.text as? Int,
-//            let mathematicsText = mathematicsTextField.text as? Int,
-//            let socialStudiesText = socialStudiesTextField.text as? Int,
-//            let scienceText = scienceTextField.text as? Int,
-//            let salaryText = salaryTextField.text as? Int else { return }
+        //        guard let chineseText = chineseTextField.text as? Int,
+        //            let englishText = englishTextField.text as? Int,
+        //            let mathematicsText = mathematicsTextField.text as? Int,
+        //            let socialStudiesText = socialStudiesTextField.text as? Int,
+        //            let scienceText = scienceTextField.text as? Int,
+        //            let salaryText = salaryTextField.text as? Int else { return }
         
         let vc1 = ResultListViewController.initiate(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
         self.navigationController?.pushViewController(vc1, animated: true)
@@ -137,7 +172,7 @@ class GsatViewController: UIViewController {
         enListenTextField.inputView = enPicker
         //enListenTextField.text = Service.shared.engListenScore[0]
     }
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -150,33 +185,38 @@ class GsatViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .red
         
-        view.addSubview(chineseTextField)
-        view.addSubview(englishTextField)
-        view.addSubview(mathematicsTextField)
-        view.addSubview(socialStudiesTextField)
-        view.addSubview(scienceTextField)
-        view.addSubview(enListenTextField)
-        view.addSubview(salaryTextField)
-        view.addSubview(doneButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
+        containerView.addSubview(backView)
         
-        chineseTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 150, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
+        backView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 30, left: 18, bottom: 30, right: 18))
         
-        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
+        backView.addSubview(chineseTextField)
+        backView.addSubview(englishTextField)
+        backView.addSubview(mathematicsTextField)
+        backView.addSubview(socialStudiesTextField)
+        backView.addSubview(scienceTextField)
+        backView.addSubview(enListenTextField)
+        backView.addSubview(salaryTextField)
+        containerView.addSubview(doneButton)
         
-        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
-        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
-        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
-        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
-        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
-        doneButton.anchor(top: salaryTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
-        
+        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+
+        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 30, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 42))
+
     }
     
 }

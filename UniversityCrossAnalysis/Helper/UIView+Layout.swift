@@ -133,3 +133,32 @@ extension UIColor {
         return UIColor(white: 240.0 / 255.0, alpha: 1.0)
     }
 }
+
+class LodingAnima: UIView {
+    
+    lazy var textLabel: UILabel = {
+        let ib = UILabel()
+        ib.textAlignment = .center
+        return ib
+    }()
+    
+    lazy var activity: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.color = .darkBColor
+        aiv.startAnimating()
+        return aiv
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        let stackView = UIStackView(arrangedSubviews: [activity, textLabel])
+        stackView.spacing = 8
+        
+        stackView.centerInSuperview(size: .init(width: 200, height: 0))
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
