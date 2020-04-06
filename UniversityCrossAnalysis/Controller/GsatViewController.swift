@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class GsatViewController: UIViewController {
     
@@ -88,6 +89,19 @@ class GsatViewController: UIViewController {
         return tf
     }()
     
+    lazy var salaryTextField: UITextField = {
+        let tf = UITextField()
+        
+        tf.backgroundColor = .white
+        tf.layer.cornerRadius = 4
+        tf.placeholder = "期望薪資"
+        tf.textAlignment = .center
+        tf.layer.borderColor = UIColor.blue.cgColor
+        tf.layer.borderWidth = 1
+        
+        return tf
+    }()
+    
     lazy var doneButton: UIButton = {
         let bt = UIButton()
         bt.backgroundColor = .cyan
@@ -98,13 +112,16 @@ class GsatViewController: UIViewController {
     }()
     
     @objc func doneClick() {
-        print("DONE")
-        guard let chineseText = chineseTextField.text,
-            let englishText = englishTextField.text,
-            let mathematicsText = mathematicsTextField.text,
-            let socialStudiesText = socialStudiesTextField.text,
-            let scienceText = scienceTextField.text else { return }
+        //print("doneClick DONE")
+//        guard let chineseText = chineseTextField.text as? Int,
+//            let englishText = englishTextField.text as? Int,
+//            let mathematicsText = mathematicsTextField.text as? Int,
+//            let socialStudiesText = socialStudiesTextField.text as? Int,
+//            let scienceText = scienceTextField.text as? Int,
+//            let salaryText = salaryTextField.text as? Int else { return }
         
+        let vc1 = ResultListViewController.initiate(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
+        self.navigationController?.pushViewController(vc1, animated: true)
     }
     
     lazy var enPicker: UIPickerView = {
@@ -120,18 +137,13 @@ class GsatViewController: UIViewController {
         enListenTextField.inputView = enPicker
         //enListenTextField.text = Service.shared.engListenScore[0]
     }
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupView()
         creatEn()
-        
-        Service.shared.postRequest { (res, err) in
-            print(res)
-        }
-        
-    }
+    } 
     
     private func setupNav() {
         //navigationController?.navigationBar.title
@@ -146,6 +158,7 @@ class GsatViewController: UIViewController {
         view.addSubview(socialStudiesTextField)
         view.addSubview(scienceTextField)
         view.addSubview(enListenTextField)
+        view.addSubview(salaryTextField)
         view.addSubview(doneButton)
         
         chineseTextField.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 150, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
@@ -160,7 +173,9 @@ class GsatViewController: UIViewController {
         
         enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
         
-        doneButton.anchor(top: enListenTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
+        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
+        
+        doneButton.anchor(top: salaryTextField.bottomAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 30, left: 10, bottom: 0, right: 10), size: .init(width: 0, height: 42))
         
     }
     
@@ -173,17 +188,17 @@ extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     // 各列有多少行資料
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return DataSources.shared.engListenScore.count
+        return UserDataSources.shared.engListenScore.count
     }
     // 每個選項顯示內容
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return DataSources.shared.engListenScore[row]
+        return UserDataSources.shared.engListenScore[row]
     }
     // 改變選擇後執行的動作
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // print(row, component)
         // 將 UITextField 的值更新為陣列 engListenScore 的第 row 項資料
-        enListenTextField.text = DataSources.shared.engListenScore[row]
+        enListenTextField.text = UserDataSources.shared.engListenScore[row]
     }
     
 }

@@ -11,7 +11,8 @@ import UIKit
 class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
-       viewControllers = [templateNavController(viewController: GsatViewController(), title: "學測分析", image: "")]
+       viewControllers = [templateNavController(viewController: GsatViewController(), title: "學測分析", image: "analytics"),
+                          templateNavController(viewController: AstViewController(), title: "校系分析", image: "graphic")]
     }
    
     func templateNavController(viewController: UIViewController, title: String, image: String) -> UIViewController {

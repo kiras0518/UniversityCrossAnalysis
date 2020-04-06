@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class Service {
     
@@ -26,8 +27,8 @@ class Service {
     let groupsKey = "groups"
     let salaryKey = "expect_salary"
     
-    func fetchData(completion: @escaping ([Result]?, Error?) -> ()) {
-        let urlString = "http://predict.chu.edu.tw/2020/gsat/api/GSAT/analysis"
+    func fetchData(completion: @escaping (Base?, Error?) -> ()) {
+        let urlString = ""
         
         guard let url = URL(string: urlString) else { return }
         
@@ -42,7 +43,7 @@ class Service {
             guard let data = data else { return }
             
             do {
-                let resultJSON = try JSONDecoder().decode([Result].self, from: data)
+                let resultJSON = try JSONDecoder().decode(Base.self, from: data)
                 
                 DispatchQueue.main.async {
                     completion(resultJSON, nil)
@@ -56,83 +57,44 @@ class Service {
         task.resume()
     }
     
+    let apiUrl = URL(string: "http://predict.chu.edu.tw/2020/gsat/api/GSAT/analysis")
     
-    
-    
-    // chinese: Int, english: Int, math: Int, society: Int, science: Int, engListeningLevel: String
-    func postRequest(completion: @escaping (Result?, Error?) -> Void) {
+    func setupRequest(chinese: Int, english: Int, math: Int, society: Int, science: Int, engListeningLevel: String, salary: Int, completion: @escaping(Base?, Error?) -> ()) {
         
-        //declare parameter as a dictionary which contains string as key and value combination.
-        //        let parameters = ["Chinese": chinese, "English": english, "Math": math, "Society": society, "Science": science, "EngListeningLevel": engListeningLevel] as [String : Any]
-        var parameters = [String: AnyObject]()
+        let parameters = Input(grades: Grades(gsat: Gsat(chinese: chinese, english: english, math: math, science: science, society: society, engListeningLevel: engListeningLevel)), groups: UserDataSources.shared.groups, location: UserDataSources.shared.location, property: UserDataSources.shared.propertySchool, expect_salary: salary)
         
-        //parameters.updateValue(<#T##value: AnyObject##AnyObject#>, forKey: <#T##String#>)
-        
-        let parameters0 = ["Chinese": 10, "English": 10, "Math": 10, "Society": 10, "Science": 10, "EngListeningLevel": "A"] as [String : Any]
-        
-        //        let parameters1 = groups
-        //        let parameters2 = location
-        //        let parameters3 = propertySchool
-        //        let parameters4 = expect_salary
-        
-        //create the url with NSURL
-        let url = URL(string: "http://predict.chu.edu.tw/2020/gsat/api/GSAT/analysis")!
-        
-        //create the session object
-        let session = URLSession.shared
-        
-        //now create the Request object using the url object
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        
-        do {
-            //request.httpBody = try JSONEncoder().encode(Tosave)
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters0, options: .prettyPrinted) // pass dictionary to data object and set it as request body
-        } catch let error {
-            print(error.localizedDescription)
-            completion(nil, error)
-        }
-        
-        //HTTP Headers
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        //create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            
-            guard error == nil else {
-                completion(nil, error)
-                return
-            }
-            
-            guard let data = data else {
-                completion(nil, NSError(domain: "dataNilError", code: 400, userInfo: nil))
-                return
-            }
-            //guard let resp = response as? HTTPURLResponse, let jsonData = data else { return }
-            
-            
-            do {
-                //create json object from data
-                guard let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Result else {
-                    completion(nil, NSError(domain: "invalidJSONTypeError", code: 404, userInfo: nil))
-                    return
+        let request = AF.request(apiUrl!, method: .post,
+                                 parameters: parameters,
+                                 encoder: JSONParameterEncoder.default,
+                                 headers: nil,
+                                 interceptor: nil)
+            .response { (response) in
+                //debugPrint("post", response)
+                switch response.result {
+                case .success(let json):
+                    print("Validation Successful")
+                    
+                    guard let data = json else { return }
+                    
+                    do {
+                        let resultData = try JSONDecoder().decode(Base.self, from: data)
+                        //print("decoder", resultData)
+                        completion(resultData, nil)
+                    } catch let error {
+                        print("decoderError", error)
+                        completion(nil, error)
+                    }
+                    
+                case .failure(let error):
+                    print("requestError", error)
                 }
-                
-                completion(json, nil)
-            } catch let error {
-                print(error.localizedDescription)
-                completion(nil, error)
-            }
-        })
-        
-        task.resume()
+        }
     }
-    
 }
 
-class DataSources {
-    static let shared = DataSources()
+class UserDataSources {
+    
+    static let shared = UserDataSources()
     
     let engListenScore = ["無","A","B","C","F"]
     
@@ -146,6 +108,4 @@ class DataSources {
                   "建築與設計學群", "遊憩與運動學群", "財經學群", "生命科學學群", "社會與心理學群",
                   "大眾傳播學群", "外語學群", "生物資源學群", "法政學群", "藝術學群",
                   "文史哲學群","教育學群","不分系學群"]
-    
-    let expect_salary = 30000
 }

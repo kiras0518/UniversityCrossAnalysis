@@ -15,17 +15,20 @@ class ResultListDataSource: GenericDataSource<Result>, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("data.value.count", data.value.count)
         return data.value.count
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultListCell.identifier, for: indexPath) as! ResultListCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultListCell.identifier, for: indexPath) as? ResultListCell else {
+            fatalError("Cannot dequeue reusable cell")
+        }
         
-        cell.viewModel = self.data.value[indexPath.row]
+        let model = data.value[indexPath.row]
+        cell.configCell(model: model)
         
         return cell
     }
-    
-    
 }

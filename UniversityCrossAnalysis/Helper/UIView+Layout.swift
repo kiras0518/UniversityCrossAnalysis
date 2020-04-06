@@ -111,3 +111,25 @@ extension UIView {
 struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
 }
+
+extension UIColor {
+    @nonobjc class var blueColor: UIColor {
+        return UIColor(red: 49 / 255.0, green: 148 / 255.0, blue: 200 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var orangeColor: UIColor {
+        return UIColor(red: 246 / 255.0, green: 174 / 255.0, blue: 45 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var darkBColor: UIColor {
+        return UIColor(red: 25 / 255.0, green: 77 / 255.0, blue: 101 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var greenColor: UIColor {
+        return UIColor(red: 62 / 255.0, green: 181 / 255.0, blue: 72 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var veryLightPink: UIColor {
+        return UIColor(white: 240.0 / 255.0, alpha: 1.0)
+    }
+}

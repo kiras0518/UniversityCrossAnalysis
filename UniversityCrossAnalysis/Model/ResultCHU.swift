@@ -53,5 +53,4 @@ struct ResultCHU: Codable {
         examURL = try values.decodeIfPresent(String.self, forKey: .examURL)
         riskIndex = try values.decodeIfPresent(Bool.self, forKey: .riskIndex)
     }
-
 }
