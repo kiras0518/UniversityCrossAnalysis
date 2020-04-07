@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResultListDataSource: GenericDataSource<Result>, UICollectionViewDataSource {
+class ResultListDataSource: GenericDataSource<Base>, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -26,8 +26,8 @@ class ResultListDataSource: GenericDataSource<Result>, UICollectionViewDataSourc
             fatalError("Cannot dequeue reusable cell")
         }
         
-        let model = data.value[indexPath.row]
-        cell.configCell(model: model)
+//        let model = data.value[indexPath.row]
+//        cell.configCell(model: model)
         
         return cell
     }

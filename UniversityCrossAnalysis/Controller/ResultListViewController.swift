@@ -18,11 +18,17 @@ struct ResultParameters {
     var salary: Int
 }
 
+protocol ViewControllersFactory {
+    func makeInitateViewController(parameters: ResultParameters?) -> UIViewController
+}
+
 class ResultListViewController: UICollectionViewController {
 
     private var parameters: ResultParameters?
     private var viewModel: ResultViewModel?
-
+    
+    private var resultListViewControllerFactory: ViewControllersFactory!
+    
     static func initiate(parameters: ResultParameters) -> ResultListViewController {
         let vc = ResultListViewController()
         let dataSource = ResultListDataSource()
@@ -34,26 +40,13 @@ class ResultListViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let vc = resultListViewControllerFactory.makeInitateViewController(parameters: parameters)
+        
+        
         setupCollectionView()
         
-        viewModel?.fetch(c: parameters?.chinese ?? 0, e: parameters?.english ?? 0, m: parameters?.math ?? 0, s: parameters?.society ?? 0, se: parameters?.science ?? 0, eng: parameters?.engListeningLevel ?? "", sal: parameters?.salary ?? 0)
-        
-        //        fetchData(c: parameters?.chinese ?? 0, e: parameters?.english ?? 0, m: parameters?.math ?? 0, s: parameters?.society ?? 0, se: parameters?.science ?? 0, eng: parameters?.engListeningLevel ?? "", sal: parameters?.salary ?? 0)
+        viewModel?.fetch(chinese: parameters?.chinese ?? 0, english: parameters?.english ?? 0, math: parameters?.math ?? 0, society: parameters?.society ?? 0, science: parameters?.science ?? 0, engLv: parameters?.engListeningLevel ?? "", salary: parameters?.salary ?? 0)
     }
-    
-    //    func fetchData(c: Int, e: Int, m: Int, s: Int, se: Int, eng: String, sal: Int) {
-    //        Service.shared.setupRequest(chinese: c, english: e, math: m, society: s, science: se, engListeningLevel: eng, salary: sal) { (data, err) in
-    //
-    //            guard let data = data else { return }
-    //
-    //            if let err = err {
-    //                print("ResultViewModel fetch Error", err)
-    //            }
-    //
-    //        }
-    //
-    //        self.collectionView.reloadData()
-    //    }
     
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -75,7 +68,7 @@ class ResultListViewController: UICollectionViewController {
         } else {
             print("dataSource ERROR")
         }
-        
+//
         collectionView.backgroundColor = .blueColor
         
         viewModel?.dataSource?.data.addAndNotify(observer: self) { [weak self] in

@@ -9,6 +9,11 @@
 import Foundation
 import Alamofire
 
+enum apiStatus {
+    case success //200
+    case vaileFailed //400
+}
+
 class Service {
     
     static let shared = Service()
