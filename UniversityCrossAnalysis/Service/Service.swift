@@ -34,7 +34,7 @@ class Service {
     let groupsKey = "groups"
     let salaryKey = "expect_salary"
 
-    func request<T: Codable>(request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
+    func request<T: Codable>(_ request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
         do {
             let request = try request.asURLRequest()
 

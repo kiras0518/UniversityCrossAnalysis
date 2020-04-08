@@ -41,7 +41,7 @@ class ResultViewModel {
     }
 
     func fetch() {
-        service.request(request: .result(parameters), Base.self) { [weak self] (result) in
+        service.request(.result(parameters), Base.self) { [weak self] (result) in
             switch result {
             case .success(let model):
                 self?.model = model
