@@ -8,6 +8,8 @@
 
 import UIKit
 
+#warning("adjust all of above to model file, instead of ViewController")
+// MARK: Parameterable
 protocol Parameterable {
     func getParameters() -> Dictionary<String, Any>
 }
@@ -33,6 +35,7 @@ extension ResultParameters: Parameterable {
         return dictionary
     }
 }
+#warning("end here")
 
 protocol ViewControllersFactory {
     associatedtype ViewController
@@ -52,10 +55,8 @@ class ResultListViewController: UICollectionViewController {
 
         viewModel?.addObserve(completion: { [weak self] (model) in
             guard let model = model else { return }
-            self?.dataSource?.data.value += [model]
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
+            self?.dataSource?.update(data: model)
+            self?.dataSource?.reloadData()
         })
         viewModel?.fetch()
     }
@@ -74,24 +75,8 @@ class ResultListViewController: UICollectionViewController {
         collectionView.delegate = self
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
-        
-        dataSource?.data.addAndNotify(observer: self, completionHandler: { [weak self] in
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        })
     }
     
-}
-
-extension ResultListViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width = collectionView.frame.width
-        
-        return CGSize.init(width: width, height: 260)
-    }
 }
 
 
@@ -104,6 +89,7 @@ extension ResultListViewController: ViewControllersFactory {
     static func makeInitateViewController(parameters: ResultParameters) -> ResultListViewController {
         let vc = ResultListViewController()
         vc.dataSource = ResultListDataSource()
+        vc.dataSource?.inject(vc.collectionView)
         vc.viewModel = ResultViewModel(parameters: parameters)
         return vc
     }
