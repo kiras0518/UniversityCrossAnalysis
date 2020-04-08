@@ -8,7 +8,11 @@
 
 import UIKit
 
-struct ResultParameters {
+protocol Parameterable {
+    func getParameters() -> Dictionary<String, Any>
+}
+
+struct ResultParameters: Codable {
     var chinese: Int
     var english: Int
     var math: Int
@@ -16,6 +20,18 @@ struct ResultParameters {
     var science: Int
     var engListeningLevel: String
     var salary: Int
+}
+extension ResultParameters: Parameterable {
+    func getParameters() -> Dictionary<String, Any> {
+        let mirror = Mirror(reflecting: self)
+        var dictionary = [String: Any]()
+        mirror.children.forEach { (child) in
+            if let key = child.label {
+                dictionary[key] = child.value
+            }
+        }
+        return dictionary
+    }
 }
 
 protocol ViewControllersFactory {
@@ -33,8 +49,15 @@ class ResultListViewController: UICollectionViewController {
         super.viewDidLoad()
         
         setupCollectionView()
-        
-        viewModel?.fetch{ self.dataSource?.data.value += [$0] }
+
+        viewModel?.addObserve(completion: { [weak self] (model) in
+            guard let model = model else { return }
+            self?.dataSource?.data.value += [model]
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        })
+        viewModel?.fetch()
     }
     
     init() {

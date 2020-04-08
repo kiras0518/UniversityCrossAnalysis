@@ -17,6 +17,8 @@ enum apiStatus {
 class Service {
     
     static let shared = Service()
+
+    private let session: Session = Session()
     
     let engListenScoreKey = "EngListeningLevel"
     let chineseKey = "Chinese"
@@ -31,6 +33,39 @@ class Service {
     let locationKey = "location"
     let groupsKey = "groups"
     let salaryKey = "expect_salary"
+
+    func request<T: Codable>(request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
+        do {
+            let request = try request.asURLRequest()
+
+            session.request(request).responseData { (response) in
+                if let statusCode = response.response?.statusCode, (200..<400) ~= statusCode {
+
+                    if let data = response.data {
+                        
+                        guard let model = try? JSONDecoder().decode(T.self, from: data) else {
+                            //TODO: error -> decode error
+                            completion(.failure(CustomError.decoderError))
+                            return
+                        }
+
+                        completion(.success(model))
+                        
+                    } else {
+                        // TODO: error -> data nil
+                        completion(.failure(CustomError.dataNil))
+                    }
+                } else {
+                    // TODO: network error
+                    completion(.failure(CustomError.networkError(response.error)))
+                }
+            }
+
+        } catch {
+            // TODO: need to handle and define some error
+            completion(.failure(error))
+        }
+    }
     
     func fetchData(completion: @escaping (Base?, Error?) -> ()) {
         let urlString = ""
