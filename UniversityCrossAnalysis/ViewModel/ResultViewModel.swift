@@ -60,4 +60,7 @@ extension ResultViewModel: ViewModelable {
     func addObserve(completion: @escaping (Base?) -> Void) {
         self.completion = completion
     }
+    func removeObserve() {
+        self.completion = nil
+    }
 }

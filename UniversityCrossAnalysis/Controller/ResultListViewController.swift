@@ -76,7 +76,9 @@ class ResultListViewController: UICollectionViewController {
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
     }
-    
+    deinit {
+        viewModel?.removeObserve()
+    }
 }
 
 
