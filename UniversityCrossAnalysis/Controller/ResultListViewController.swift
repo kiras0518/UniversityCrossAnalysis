@@ -11,7 +11,20 @@ import UIKit
 #warning("adjust all of above to model file, instead of ViewController")
 // MARK: Parameterable
 protocol Parameterable {
-    func getParameters() -> Dictionary<String, Any>
+    func getParameters() -> [String: Any]
+}
+
+extension Parameterable {
+    func getParameters() -> [String: Any] {
+        let mirror = Mirror(reflecting: self)
+        var dictionary = [String: Any]()
+        mirror.children.forEach { (child) in
+            if let key = child.label {
+                dictionary[key] = child.value
+            }
+        }
+        return dictionary
+    }
 }
 
 struct ResultParameters: Codable {
@@ -23,18 +36,8 @@ struct ResultParameters: Codable {
     var engListeningLevel: String
     var salary: Int
 }
-extension ResultParameters: Parameterable {
-    func getParameters() -> Dictionary<String, Any> {
-        let mirror = Mirror(reflecting: self)
-        var dictionary = [String: Any]()
-        mirror.children.forEach { (child) in
-            if let key = child.label {
-                dictionary[key] = child.value
-            }
-        }
-        return dictionary
-    }
-}
+
+extension ResultParameters: Parameterable { }
 #warning("end here")
 
 protocol ViewControllersFactory {

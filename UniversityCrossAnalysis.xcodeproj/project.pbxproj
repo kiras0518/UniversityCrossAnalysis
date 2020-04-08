@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D05D561243DF793004654C0 /* ParameterableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D05D560243DF793004654C0 /* ParameterableTests.swift */; };
 		0D9E7CB3243DC82D001D07DD /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E7CB2243DC82D001D07DD /* EndPoint.swift */; };
 		3135FC76B341E5687DFC9510 /* Pods_UniversityCrossAnalysis_UniversityCrossAnalysisUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5A165D3E033B33074C8BE8A /* Pods_UniversityCrossAnalysis_UniversityCrossAnalysisUITests.framework */; };
 		486061E42704C8C64F48696D /* Pods_UniversityCrossAnalysis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87771CC2BD055668E04D86C8 /* Pods_UniversityCrossAnalysis.framework */; };
@@ -59,6 +60,7 @@
 		0107D3159A31799AD6045901 /* Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.debug.xcconfig"; path = "Target Support Files/Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests/Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		011F2A59F79DC7DE1849BA64 /* Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.release.xcconfig"; path = "Target Support Files/Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests/Pods-UniversityCrossAnalysis-UniversityCrossAnalysisUITests.release.xcconfig"; sourceTree = "<group>"; };
 		043AA2AC543C2040BD754DEE /* Pods-UniversityCrossAnalysisTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniversityCrossAnalysisTests.release.xcconfig"; path = "Target Support Files/Pods-UniversityCrossAnalysisTests/Pods-UniversityCrossAnalysisTests.release.xcconfig"; sourceTree = "<group>"; };
+		0D05D560243DF793004654C0 /* ParameterableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterableTests.swift; sourceTree = "<group>"; };
 		0D9E7CB2243DC82D001D07DD /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		14172BDAE9639C7EAA092AC4 /* Pods-UniversityCrossAnalysis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UniversityCrossAnalysis.release.xcconfig"; path = "Target Support Files/Pods-UniversityCrossAnalysis/Pods-UniversityCrossAnalysis.release.xcconfig"; sourceTree = "<group>"; };
 		6E244C6324226E9B00A2888B /* ResultCHU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCHU.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		6EFC889024226BE500654CF4 /* UniversityCrossAnalysisTests */ = {
 			isa = PBXGroup;
 			children = (
+				0D05D560243DF793004654C0 /* ParameterableTests.swift */,
 				6EFC889124226BE500654CF4 /* UniversityCrossAnalysisTests.swift */,
 				6EFC889324226BE500654CF4 /* Info.plist */,
 			);
@@ -538,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFC889224226BE500654CF4 /* UniversityCrossAnalysisTests.swift in Sources */,
+				0D05D561243DF793004654C0 /* ParameterableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
