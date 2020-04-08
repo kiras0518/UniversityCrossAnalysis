@@ -19,33 +19,22 @@ struct ResultParameters {
 }
 
 protocol ViewControllersFactory {
-    func makeInitateViewController(parameters: ResultParameters?) -> UIViewController
+    associatedtype ViewController
+    associatedtype Parameters
+    static func makeInitateViewController(parameters: Parameters) -> ViewController
 }
 
 class ResultListViewController: UICollectionViewController {
 
-    private var parameters: ResultParameters?
+    private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
-    
-    private var resultListViewControllerFactory: ViewControllersFactory!
-    
-    static func initiate(parameters: ResultParameters) -> ResultListViewController {
-        let vc = ResultListViewController()
-        let dataSource = ResultListDataSource()
-        vc.viewModel = ResultViewModel(dataSource: dataSource)
-        vc.parameters = parameters
-        return vc
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let vc = resultListViewControllerFactory.makeInitateViewController(parameters: parameters)
-        
-        
         setupCollectionView()
         
-        viewModel?.fetch(chinese: parameters?.chinese ?? 0, english: parameters?.english ?? 0, math: parameters?.math ?? 0, society: parameters?.society ?? 0, science: parameters?.science ?? 0, engLv: parameters?.engListeningLevel ?? "", salary: parameters?.salary ?? 0)
+        viewModel?.fetch{ self.dataSource?.data.value += [$0] }
     }
     
     init() {
@@ -58,24 +47,16 @@ class ResultListViewController: UICollectionViewController {
     
     fileprivate func setupCollectionView() {
         collectionView.register(ResultListCell.self, forCellWithReuseIdentifier: ResultListCell.identifier)
-        //collectionView.contentInsetAdjustmentBehavior = .automatic
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
-        //collectionView.dataSource = dataSource
-        
-        if let dataSource =  self.viewModel?.dataSource as? UICollectionViewDataSource {
-            collectionView.dataSource = dataSource
-        } else {
-            print("dataSource ERROR")
-        }
-//
+        collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
         
-        viewModel?.dataSource?.data.addAndNotify(observer: self) { [weak self] in
+        dataSource?.data.addAndNotify(observer: self, completionHandler: { [weak self] in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
-        }
+        })
     }
     
 }
@@ -88,4 +69,20 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize.init(width: width, height: 260)
     }
+}
+
+
+// MARK: - ViewControllersFactory
+extension ResultListViewController: ViewControllersFactory {
+    
+    typealias ViewController = ResultListViewController
+    typealias Parameters = ResultParameters
+
+    static func makeInitateViewController(parameters: ResultParameters) -> ResultListViewController {
+        let vc = ResultListViewController()
+        vc.dataSource = ResultListDataSource()
+        vc.viewModel = ResultViewModel(parameters: parameters)
+        return vc
+    }
+
 }

@@ -155,7 +155,7 @@ class GsatViewController: UIViewController {
         //            let scienceText = scienceTextField.text as? Int,
         //            let salaryText = salaryTextField.text as? Int else { return }
         
-        let vc1 = ResultListViewController.initiate(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
+        let vc1 = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
         self.navigationController?.pushViewController(vc1, animated: true)
     }
     
