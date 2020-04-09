@@ -52,12 +52,20 @@ enum APIEndPoint {
     var paramters: Parameters? {
         switch self {
         case .result(let paramters):
-            return paramters.getParameters()
+            let para = Input(grades: Grades(gsat: Gsat(chinese: paramters.chinese, english: paramters.english, math: paramters.math, science: paramters.science, society: paramters.society, engListeningLevel: paramters.engListeningLevel)), groups: UserDataSources.shared.groups, location: UserDataSources.shared.location, property: UserDataSources.shared.propertySchool, expect_salary: paramters.salary)
+            return getdictionary(para)
         default:
             return nil
         }
     }
 
+}
+extension APIEndPoint {
+    func getdictionary<T: Encodable>(_ object: T) ->  [String: Any]? {
+        guard let data = try? JSONEncoder().encode(object) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
+          .flatMap { $0 as? [String: Any] }
+    }
 }
 
 // MARK: - URLRequestConvertible
@@ -67,13 +75,14 @@ extension APIEndPoint: URLRequestConvertible {
             let url = baseURLString?.appendingPathComponent(path) else {
             throw CustomError.urlMissing
         }
-}
 
         var request = URLRequest(url: url)
+        request.httpMethod = self.httpMethod.rawValue
         headers.forEach { (header) in
             request.setValue(header.value, forHTTPHeaderField: header.name)
         }
-
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         return try encoding.encode(request, with: paramters)
     }
 

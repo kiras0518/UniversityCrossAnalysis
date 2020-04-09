@@ -10,15 +10,15 @@ import UIKit
 
 class ResultListDataSource: NSObject {
     
-    private var data: [Base] = []
+    private var data: [ResultSchool] = []
     private weak var collectionView: UICollectionView?
 
     func inject(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
     }
     // TODO: we need to consider dataStructure of this model(data)
-    func update(data: Base) {
-        self.data += [data]
+    func update(_ models: [ResultSchool]) {
+        self.data += models
 
     }
     func reloadData() {
@@ -43,8 +43,8 @@ extension ResultListDataSource: UICollectionViewDataSource {
                 fatalError("Cannot dequeue reusable cell")
             }
             
-    //        let model = data.value[indexPath.row]
-    //        cell.configCell(model: model)
+            let model = data[indexPath.row]
+            cell.configCell(model: model)
             
             return cell
         }
@@ -61,17 +61,4 @@ extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
 
     }
     
-    deinit {
-        print("deinit ResultListDataSource")
-    }
-}
-
-extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let width = collectionView.frame.width
-
-        return CGSize.init(width: width, height: 260)
-    }
 }

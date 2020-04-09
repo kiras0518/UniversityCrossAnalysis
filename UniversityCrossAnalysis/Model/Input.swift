@@ -15,3 +15,5 @@ struct Input: Codable {
     let property: [String]?
     let expect_salary: Int?
 }
+
+extension Input: Parameterable { }

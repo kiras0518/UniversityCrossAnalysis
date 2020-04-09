@@ -9,11 +9,6 @@
 import Foundation
 import Alamofire
 
-enum NetworkError: Error {
-    case success //200
-    case vaileFailed //400
-}
-
 class Service {
     
     static let shared = Service()
@@ -100,39 +95,6 @@ class Service {
     
     let apiUrl = URL(string: "http://predict.chu.edu.tw/2020/gsat/api/GSAT/analysis")
     
-    func setupRequest2<T: Codable>(request: APIEndPoint, _ model: T.Type, completion: @escaping ((Result<T, Error>) -> Void)) {
-        do {
-            let request = try request.asURLRequest()
-
-            session.request(request).responseData { (response) in
-                if let statusCode = response.response?.statusCode, (200..<400) ~= statusCode {
-
-                    if let data = response.data {
-
-                        guard let model = try? JSONDecoder().decode(T.self, from: data) else {
-                            //TODO: error -> decode error
-                            completion(.failure(CustomError.decoderError))
-                            return
-                        }
-
-                        completion(.success(model))
-
-                    } else {
-                        // TODO: error -> data nil
-                        completion(.failure(CustomError.dataNil))
-                    }
-                } else {
-                    // TODO: network error
-                    completion(.failure(CustomError.networkError(response.error)))
-                }
-            }
-
-        } catch {
-            // TODO: need to handle and define some error
-            completion(.failure(error))
-        }
-    }
-    
     func setupRequest1<T: Codable>(_ dataRequest: DataRequest, _ type: T.Type, completion: @escaping (Result<T, Error>) -> ()) {
         dataRequest.validate().responseJSON { (response) in
     
@@ -162,7 +124,7 @@ class Service {
         
         let parameters = Input(grades: Grades(gsat: Gsat(chinese: chinese, english: english, math: math, science: science, society: society, engListeningLevel: engListeningLevel)), groups: UserDataSources.shared.groups, location: UserDataSources.shared.location, property: UserDataSources.shared.propertySchool, expect_salary: salary)
         
-        let request = AF.request(apiUrl!, method: .post,
+        AF.request(apiUrl!, method: .post,
                                  parameters: parameters,
                                  encoder: JSONParameterEncoder.default,
                                  headers: nil,

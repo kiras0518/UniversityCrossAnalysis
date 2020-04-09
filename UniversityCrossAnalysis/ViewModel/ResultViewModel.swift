@@ -18,8 +18,9 @@ class ResultViewModel {
     
     private var parameters: ResultParameters
     private let service: Service
-    private var completion: ((Base?) -> Void)?
-    private var model: Base? {
+    private var completion: (([ResultSchool]?) -> Void)?
+    
+    private var model: [ResultSchool]? {
         didSet {
             completion?(model)
         }
@@ -45,7 +46,7 @@ class ResultViewModel {
         service.request(.result(parameters), Base.self) { [weak self] (result) in
             switch result {
             case .success(let model):
-                self?.model = model
+                self?.model = model.result
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -57,13 +58,11 @@ class ResultViewModel {
 
 // MARK: - ViewModelable
 extension ResultViewModel: ViewModelable {
-    typealias Model = Base
-    func addObserve(completion: @escaping (Base?) -> Void) {
+    typealias Model = [ResultSchool]
+    func addObserve(completion: @escaping ([ResultSchool]?) -> Void) {
         self.completion = completion
     }
     func removeObserve() {
         self.completion = nil
-
-
     }
 }

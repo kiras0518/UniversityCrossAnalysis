@@ -150,6 +150,7 @@ class GsatViewController: UIViewController {
         print("doneClick DONE")
         
         let vc1 = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
+        
         self.navigationController?.pushViewController(vc1, animated: true)
 
         

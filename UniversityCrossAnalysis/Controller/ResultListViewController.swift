@@ -60,15 +60,17 @@ class ResultListViewController: UICollectionViewController {
         super.viewDidLoad()
         
         setupCollectionView()
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel?.addObserve(completion: { [weak self] (model) in
-            guard let model = model else { return }
-            self?.dataSource?.update(data: model)
-            self?.dataSource?.reloadData()
-        })
-
-        viewModel?.fetch()
-
+             guard let model = model else { return }
+             self?.dataSource?.update(model)
+             self?.dataSource?.reloadData()
+         })
+//
+         viewModel?.fetch()
     }
     
     init() {
@@ -87,13 +89,11 @@ class ResultListViewController: UICollectionViewController {
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
     }
+    
     deinit {
         viewModel?.removeObserve()
     }
 
-        
-    }
- 
 }
 
 
@@ -111,19 +111,4 @@ extension ResultListViewController: ViewControllersFactory {
         return vc
     }
 
-}
-
-extension ResultListViewController: ViewControllersFactory {
-    //遵從 protocol 的型別裡以 typealias 指定
-    typealias ViewController = ResultListViewController
-    typealias Parameters = ResultParameters
-    
-    static func makeInitateViewController(parameters: ResultParameters) -> ResultListViewController {
-        let vc = ResultListViewController()
-        vc.dataSource = ResultListDataSource()
-        //??
-        vc.dataSource?.inject(vc.collectionView)
-        vc.viewModel = ResultViewModel(parameters: parameters)
-        return vc
-    }
 }
