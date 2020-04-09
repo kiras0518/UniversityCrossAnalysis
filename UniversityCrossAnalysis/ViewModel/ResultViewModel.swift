@@ -8,51 +8,94 @@
 
 import Foundation
 
-struct ResultViewModel {
+protocol ViewModelable {
+    associatedtype Model
+    func addObserve(completion: @escaping (Model?) -> ())
+    func removeObserve()
+}
+
+class ResultViewModel {
     
-    weak var dataSource: GenericDataSource<Base>?
+    //    var dataSource: GenericDataSource<ResultSchool>?
+    //
+    //    init(dataSource: GenericDataSource<ResultSchool>?) {
+    //
+    //        self.dataSource = dataSource
+    //    }
     
-    init(dataSource: GenericDataSource<Base>?) {
-        //why not nil???
-        self.dataSource = dataSource
+    private var parameters: ResultParameters
+    private let service: Service
+    private var completoin: ((Base?)->())?
+    
+    private var model: Base? {
+        didSet {
+            completoin?(model)
+        }
     }
     
-    func fetch(chinese: Int, english: Int, math: Int, society: Int, science: Int, engLv: String, salary: Int) {
-        
-        Service.shared.setupRequest(chinese: chinese, english: english, math: math, society: math, science: science, engListeningLevel: engLv, salary: salary) { (data, err) in
+    init(parameters: ResultParameters, service: Service = Service.shared) {
+        self.parameters = parameters
+        self.service = service
+    }
+    
+    func fetch1() {
+        service.setupRequest2(request: .result(parameters), Base.self) { [weak self] (result) in
+            switch result {
+            case .success(let model):
+                self?.model = model
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetch(completion: @escaping (Base) -> ()) {
+        Service.shared.setupRequest(chinese: parameters.chinese,
+                                    english: parameters.english,
+                                    math: parameters.math,
+                                    society: parameters.math,
+                                    science: parameters.science,
+                                    engListeningLevel: parameters.engListeningLevel,
+                                    salary: parameters.salary)
+        { (data, err) in
             
             guard let data = data else { return }
             
             if let err = err {
                 print("ResultViewModel fetch Error", err)
             }
-           
-            self.dataSource?.data.value = [data]
             
-            print("data.result?.count",data.result?.count)
+            completion(data)
         }
     }
     
-//    static func fetch1(model: Base) -> ResultViewModel {
-//        
-//        Service.shared.setupRequest(chinese: model.input?.grades?.gsat?.chinese ?? 0,
-//                                    english: model.input?.grades?.gsat?.english ?? 0,
-//                                    math: model.input?.grades?.gsat?.math ?? 0,
-//                                    society: model.input?.grades?.gsat?.society ?? 0,
-//                                    science: model.input?.grades?.gsat?.science ?? 0,
-//                                    engListeningLevel: model.input?.grades?.gsat?.engListeningLevel ?? "",
-//                                    salary: model.input?.expect_salary ?? 0) { (data, err) in
-//
-//            guard let data = data else { return }
-//
-//            if let err = err {
-//                print("ResultViewModel fetch Error", err)
-//            }
-//
-//            self.dataSource?.data.value = [data]
-//
-//            print("data", self.dataSource?.data.value.count, data.result?.count)
-//        }
-//
-//    }
+    //    func fetch(chinese: Int, english: Int, math: Int, society: Int, science: Int, engLv: String, salary: Int) {
+    //
+    //        Service.shared.setupRequest(chinese: chinese, english: english, math: math, society: math, science: science, engListeningLevel: engLv, salary: salary) { (data, err) in
+    //
+    //            guard let data = data else { return }
+    //
+    //            if let err = err {
+    //                print("ResultViewModel fetch Error", err)
+    //            }
+    //
+    //            self.dataSource?.data.value = data.result ?? []
+    //
+    //            //print("data.result?.count",data.result?.count)
+    //        }
+    //    }
+}
+
+extension ResultViewModel: ViewModelable {
+    
+    typealias Model = Base
+    
+    func addObserve(completion: @escaping (Base?) -> ()) {
+        self.completoin = completion
+    }
+    
+    func removeObserve() {
+        self.completoin = nil
+    }
 }

@@ -14,6 +14,7 @@
 		6E244C6824226EE400A2888B /* Gsat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C6724226EE400A2888B /* Gsat.swift */; };
 		6E244C6A242284F300A2888B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E244C69242284F300A2888B /* MainTabBarController.swift */; };
 		6E4FDB57243796C1006146F3 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FDB56243796C1006146F3 /* Base.swift */; };
+		6E55A08E243ED8EB00F1E927 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E55A08D243ED8EB00F1E927 /* EndPoint.swift */; };
 		6EF2120E2428A0AD006E258C /* ResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF2120D2428A0AD006E258C /* ResultListViewController.swift */; };
 		6EF212102428A0E3006E258C /* GenericDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF2120F2428A0E3006E258C /* GenericDataSource.swift */; };
 		6EF212122428C461006E258C /* ResultListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF212112428C461006E258C /* ResultListDataSource.swift */; };
@@ -64,6 +65,7 @@
 		6E244C6724226EE400A2888B /* Gsat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gsat.swift; sourceTree = "<group>"; };
 		6E244C69242284F300A2888B /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		6E4FDB56243796C1006146F3 /* Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
+		6E55A08D243ED8EB00F1E927 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		6EF2120D2428A0AD006E258C /* ResultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListViewController.swift; sourceTree = "<group>"; };
 		6EF2120F2428A0E3006E258C /* GenericDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDataSource.swift; sourceTree = "<group>"; };
 		6EF212112428C461006E258C /* ResultListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListDataSource.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				6EF2121824290476006E258C /* Service.swift */,
+				6E55A08D243ED8EB00F1E927 /* EndPoint.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				6EF599592424B14200D77F07 /* ScreenConfigs.swift in Sources */,
 				6EF2121924290476006E258C /* Service.swift in Sources */,
 				6EF599532424A25500D77F07 /* GsatViewController.swift in Sources */,
+				6E55A08E243ED8EB00F1E927 /* EndPoint.swift in Sources */,
 				6E4FDB57243796C1006146F3 /* Base.swift in Sources */,
 				6EFC88B024226DC000654CF4 /* Input.swift in Sources */,
 				6E244C6824226EE400A2888B /* Gsat.swift in Sources */,
@@ -706,10 +710,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tw.idv.tor-f.UniversityCrossAnalysis";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameyo.UniversityCrossAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -725,10 +729,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "tw.idv.tor-f.UniversityCrossAnalysis";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameyo.UniversityCrossAnalysis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

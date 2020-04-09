@@ -16,49 +16,9 @@ class ResultListCell: UICollectionViewCell {
         return ResultListCell.identifier
     }
     
-//    var model: Base? {
-//        didSet {
-//            
-//            guard let model = model else {
-//                return
-//            }
-//            
-//            model.result?.forEach({ (data) in
-//                schoolCode.text = data.did
-//                school.text = data.dname
-//                dept.text = data.dname
-//                salary.text = String(data.salary ?? 0)
-//                ratio.text = data.rateOfThisYear
-//                lastRatio.text = data.lastCriterion
-//            })
-//        }
-//    }
-//    
-//    var resultViewModel: Result? {
-//        didSet {
-//            //schoolCode.text = viewModel?.result.
-//            guard let model = resultViewModel else {
-//                return
-//            }
-//            
-//            schoolCode.text = model.did
-//            school.text = model.dname
-//            dept.text = model.dname
-//            salary.text = String(model.salary ?? 0)
-//            ratio.text = model.rateOfThisYear
-//            lastRatio.text = model.lastCriterion
-//            
-//        }
-//    }
-//    
-//    func fill(wiht viewModel: ResultViewModel) {
-//        let dd = viewModel.dataSource?.data.value
-//        
-//    }
-    
-    func configCell(model: Result) {
+    func configCell(model: ResultSchool) {
         schoolCode.text = model.did
-        school.text = model.dname
+        school.text = model.uname
         dept.text = model.dname
         salary.text = String(model.salary ?? 0)
         ratio.text = model.rateOfThisYear
@@ -115,6 +75,7 @@ class ResultListCell: UICollectionViewCell {
         
         lb.text = "XX學系"
         lb.textAlignment = .center
+        lb.numberOfLines = 2
         
         return lb
     }()

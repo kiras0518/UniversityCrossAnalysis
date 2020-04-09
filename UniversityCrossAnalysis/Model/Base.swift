@@ -11,7 +11,7 @@ import Foundation
 struct Base: Codable {
     let status: Int?
     let input: Input?
-    let result: [Result]?
+    let result: [ResultSchool]?
     let resultCHU: [ResultCHU]?
     let message: String?
 
@@ -28,7 +28,7 @@ struct Base: Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         status = try values.decodeIfPresent(Int.self, forKey: .status)
         input = try values.decodeIfPresent(Input.self, forKey: .input)
-        result = try values.decodeIfPresent([Result].self, forKey: .result)
+        result = try values.decodeIfPresent([ResultSchool].self, forKey: .result)
         resultCHU = try values.decodeIfPresent([ResultCHU].self, forKey: .resultCHU)
         message = try values.decodeIfPresent(String.self, forKey: .message)
     }

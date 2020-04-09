@@ -8,15 +8,30 @@
 
 import UIKit
 
-class ResultListDataSource: GenericDataSource<Base>, UICollectionViewDataSource {
+class ResultListDataSource: NSObject {
+    
+    private var data: [Base] = []
+    private weak var collectionView: UICollectionView?
+    
+    func inject(_ collectionView: UICollectionView) {
+        self.collectionView = collectionView
+    }
+    
+    func update(data: Base) {
+        self.data += [data]
+    }
+    
+    func reloadData() {
+        collectionView?.reloadData()
+    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("data.value.count", data.value.count)
-        return data.value.count
+        //print("data.value.count", data.value.count)
+        return data.count
        
     }
     
@@ -26,9 +41,20 @@ class ResultListDataSource: GenericDataSource<Base>, UICollectionViewDataSource 
             fatalError("Cannot dequeue reusable cell")
         }
         
-//        let model = data.value[indexPath.row]
-//        cell.configCell(model: model)
-        
         return cell
+    }
+    
+    deinit {
+        print("deinit ResultListDataSource")
+    }
+}
+
+extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let width = collectionView.frame.width
+
+        return CGSize.init(width: width, height: 260)
     }
 }

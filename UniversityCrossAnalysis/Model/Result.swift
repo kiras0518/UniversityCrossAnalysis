@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Result: Codable {
+struct ResultSchool: Codable {
     let did: String?
     let uname: String?
     let uurl: String?
