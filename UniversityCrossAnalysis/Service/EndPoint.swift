@@ -2,19 +2,23 @@
 //  EndPoint.swift
 //  UniversityCrossAnalysis
 //
-
-//  Created by Jie liang Huang on 2020/4/8.
+//  Created by kiras on 2020/4/9.
+//  Copyright © 2020 ameyo. All rights reserved.
+//
 
 import Foundation
 import Alamofire
 
 enum CustomError: Error {
-    case urlMissing, decoderError, dataNil, networkError(Error?)
+    case urlMissing
+    case decoderError
+    case dataNil
+    case networkError(Error?)
 }
 
 enum APIEndPoint {
     case result(ResultParameters)
-
+    
     var httpMethod: HTTPMethod {
         switch self {
         case .result:
@@ -23,10 +27,11 @@ enum APIEndPoint {
             return .get
         }
     }
-
+    
     var baseURLString: URL? {
-        return URL(string: "http://predict.chu.edu.tw")
+        return URL(string: "http://predict.chu.edu.tw/")
     }
+    
     var path: String? {
         switch self {
         case .result:
@@ -35,11 +40,11 @@ enum APIEndPoint {
             return nil
         }
     }
-
+    
     var headers: HTTPHeaders {
         return HTTPHeaders.default
     }
-
+    
     var encoding: ParameterEncoding {
         switch self {
         case .result:
@@ -48,7 +53,7 @@ enum APIEndPoint {
             return URLEncoding.default
         }
     }
-
+    
     var paramters: Parameters? {
         switch self {
         case .result(let paramters):
@@ -57,24 +62,23 @@ enum APIEndPoint {
             return nil
         }
     }
-
 }
 
-// MARK: - URLRequestConvertible
 extension APIEndPoint: URLRequestConvertible {
+    // 嘗試通過自定義URLRequestConvertible的方法來傳遞
     func asURLRequest() throws -> URLRequest {
+        
         guard let path = self.path,
             let url = baseURLString?.appendingPathComponent(path) else {
-            throw CustomError.urlMissing
+                throw CustomError.urlMissing
         }
-}
-
+        
         var request = URLRequest(url: url)
         headers.forEach { (header) in
             request.setValue(header.value, forHTTPHeaderField: header.name)
         }
-
+        
         return try encoding.encode(request, with: paramters)
     }
-
+    
 }
