@@ -16,10 +16,10 @@ class ResultListDataSource: NSObject {
     func inject(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
     }
-
     // TODO: we need to consider dataStructure of this model(data)
     func update(data: Base) {
         self.data += [data]
+
     }
     func reloadData() {
         collectionView?.reloadData()
@@ -54,8 +54,24 @@ extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+
         let width = collectionView.frame.width
         
+        return CGSize.init(width: width, height: 260)
+
+    }
+    
+    deinit {
+        print("deinit ResultListDataSource")
+    }
+}
+
+extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let width = collectionView.frame.width
+
         return CGSize.init(width: width, height: 260)
     }
 }

@@ -8,8 +8,10 @@
 
 import UIKit
 
+
 #warning("adjust all of above to model file, instead of ViewController")
 // MARK: Parameterable
+
 protocol Parameterable {
     func getParameters() -> [String: Any]
 }
@@ -37,16 +39,19 @@ struct ResultParameters: Codable {
     var salary: Int
 }
 
+
 extension ResultParameters: Parameterable { }
 #warning("end here")
 
 protocol ViewControllersFactory {
     associatedtype ViewController
     associatedtype Parameters
+
     static func makeInitateViewController(parameters: Parameters) -> ViewController
 }
 
 class ResultListViewController: UICollectionViewController {
+
 
     private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
@@ -61,7 +66,9 @@ class ResultListViewController: UICollectionViewController {
             self?.dataSource?.update(data: model)
             self?.dataSource?.reloadData()
         })
+
         viewModel?.fetch()
+
     }
     
     init() {
@@ -76,12 +83,17 @@ class ResultListViewController: UICollectionViewController {
         collectionView.register(ResultListCell.self, forCellWithReuseIdentifier: ResultListCell.identifier)
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
+
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
     }
     deinit {
         viewModel?.removeObserve()
     }
+
+        
+    }
+ 
 }
 
 
@@ -99,4 +111,19 @@ extension ResultListViewController: ViewControllersFactory {
         return vc
     }
 
+}
+
+extension ResultListViewController: ViewControllersFactory {
+    //遵從 protocol 的型別裡以 typealias 指定
+    typealias ViewController = ResultListViewController
+    typealias Parameters = ResultParameters
+    
+    static func makeInitateViewController(parameters: ResultParameters) -> ResultListViewController {
+        let vc = ResultListViewController()
+        vc.dataSource = ResultListDataSource()
+        //??
+        vc.dataSource?.inject(vc.collectionView)
+        vc.viewModel = ResultViewModel(parameters: parameters)
+        return vc
+    }
 }

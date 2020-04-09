@@ -2,9 +2,8 @@
 //  EndPoint.swift
 //  UniversityCrossAnalysis
 //
+
 //  Created by Jie liang Huang on 2020/4/8.
-//  Copyright © 2020 ameyo. All rights reserved.
-//
 
 import Foundation
 import Alamofire
@@ -15,6 +14,7 @@ enum CustomError: Error {
 
 enum APIEndPoint {
     case result(ResultParameters)
+
     var httpMethod: HTTPMethod {
         switch self {
         case .result:
@@ -23,6 +23,7 @@ enum APIEndPoint {
             return .get
         }
     }
+
     var baseURLString: URL? {
         return URL(string: "http://predict.chu.edu.tw")
     }
@@ -34,9 +35,11 @@ enum APIEndPoint {
             return nil
         }
     }
+
     var headers: HTTPHeaders {
         return HTTPHeaders.default
     }
+
     var encoding: ParameterEncoding {
         switch self {
         case .result:
@@ -45,6 +48,7 @@ enum APIEndPoint {
             return URLEncoding.default
         }
     }
+
     var paramters: Parameters? {
         switch self {
         case .result(let paramters):
@@ -63,10 +67,14 @@ extension APIEndPoint: URLRequestConvertible {
             let url = baseURLString?.appendingPathComponent(path) else {
             throw CustomError.urlMissing
         }
+}
+
         var request = URLRequest(url: url)
         headers.forEach { (header) in
             request.setValue(header.value, forHTTPHeaderField: header.name)
         }
+
         return try encoding.encode(request, with: paramters)
     }
+
 }

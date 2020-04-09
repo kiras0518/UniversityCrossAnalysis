@@ -10,6 +10,7 @@ import Foundation
 
 protocol ViewModelable {
     associatedtype Model
+
     func addObserve(completion: @escaping (Model?) -> Void)
 }
 
@@ -62,5 +63,7 @@ extension ResultViewModel: ViewModelable {
     }
     func removeObserve() {
         self.completion = nil
+
+
     }
 }

@@ -16,7 +16,7 @@ class GsatViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView(frame: .zero)
         
-        sv.backgroundColor = .white
+        sv.backgroundColor = .red
         sv.frame = self.view.bounds
         sv.contentSize = contentViewSize
         sv.autoresizingMask = .flexibleHeight
@@ -147,16 +147,26 @@ class GsatViewController: UIViewController {
     
     @objc func doneClick() {
         
-        //print("doneClick DONE")
-        //        guard let chineseText = chineseTextField.text as? Int,
-        //            let englishText = englishTextField.text as? Int,
-        //            let mathematicsText = mathematicsTextField.text as? Int,
-        //            let socialStudiesText = socialStudiesTextField.text as? Int,
-        //            let scienceText = scienceTextField.text as? Int,
-        //            let salaryText = salaryTextField.text as? Int else { return }
+        print("doneClick DONE")
         
         let vc1 = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
         self.navigationController?.pushViewController(vc1, animated: true)
+
+        
+//        guard let chineseText = chineseTextField.text?.toInt(),
+//            let englishText = englishTextField.text?.toInt(),
+//        let mathematicsText = mathematicsTextField.text?.toInt(),
+//        let socialStudiesText = socialStudiesTextField.text?.toInt(),
+//        let scienceText = scienceTextField.text?.toInt(),
+//        let salaryText = salaryTextField.text?.toInt() else { return print("Text Error")}
+        
+//        guard let chineseText = chineseTextField.text as? Int,
+//                    let englishText = englishTextField.text as? Int,
+//                    let mathematicsText = mathematicsTextField.text as? Int,
+//                    let socialStudiesText = socialStudiesTextField.text as? Int,
+//                    let scienceText = scienceTextField.text as? Int,
+//                    let salaryText = salaryTextField.text as? Int else { return }
+        
     }
     
     lazy var enPicker: UIPickerView = {
@@ -241,4 +251,38 @@ extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         enListenTextField.text = UserDataSources.shared.engListenScore[row]
     }
     
+}
+
+extension String {
+    //Converts String to Int
+    public func toInt() -> Int? {
+        if let num = NumberFormatter().number(from: self) {
+            return num.intValue
+        } else {
+            return nil
+        }
+    }
+
+    //Converts String to Double
+    public func toDouble() -> Double? {
+        if let num = NumberFormatter().number(from: self) {
+            return num.doubleValue
+        } else {
+            return nil
+        }
+    }
+
+    /// EZSE: Converts String to Float
+    public func toFloat() -> Float? {
+        if let num = NumberFormatter().number(from: self) {
+            return num.floatValue
+        } else {
+            return nil
+        }
+    }
+
+    //Converts String to Bool
+    public func toBool() -> Bool? {
+        return (self as NSString).boolValue
+    }
 }
