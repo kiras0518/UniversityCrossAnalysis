@@ -112,3 +112,22 @@ extension ResultListViewController: ViewControllersFactory {
     }
 
 }
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension ResultListViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = collectionView.frame.width
+        
+        let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+        
+        dummyCell.layoutIfNeeded()
+    
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        
+        return CGSize.init(width: width, height: 300)
+
+    }
+    
+}

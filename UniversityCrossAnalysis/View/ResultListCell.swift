@@ -20,7 +20,7 @@ class ResultListCell: UICollectionViewCell {
         schoolCode.text = model.did
         school.text = model.uname
         dept.text = model.dname
-        salary.text = String(model.salary ?? 0)
+        salary.text = "$" + String(model.salary ?? 0)
         ratio.text = model.rateOfThisYear
         lastRatio.text = model.lastCriterion
     }
@@ -75,7 +75,7 @@ class ResultListCell: UICollectionViewCell {
         
         lb.text = "XX學系"
         lb.textAlignment = .center
-        lb.numberOfLines = 2
+        lb.numberOfLines = 0
         
         return lb
     }()
@@ -119,8 +119,9 @@ class ResultListCell: UICollectionViewCell {
     lazy var lastRatioLabel: UILabel = {
         let lb = UILabel()
         
-        lb.text = "去年篩選倍率最低級分"
+        lb.text = "去年倍率最低級分"
         lb.textAlignment = .center
+        lb.numberOfLines = 0
         
         return lb
     }()
@@ -144,6 +145,68 @@ class ResultListCell: UICollectionViewCell {
         return iv
     }()
     
+    func setupStack() {
+        
+        let schoolCodeStack = UIStackView(arrangedSubviews: [schoolCodeLabel, schoolCode])
+        schoolCodeStack.spacing = 10
+        schoolCodeStack.axis = .horizontal
+        schoolCodeStack.alignment = .leading
+        schoolCodeStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(schoolCodeStack)
+        schoolCodeStack.anchor(top: viewContraner.topAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 16, left: 8, bottom: 0, right: 8))
+        
+        
+        let schoolStack = UIStackView(arrangedSubviews: [schoolLabel, school])
+        schoolStack.spacing = 10
+        schoolStack.axis = .horizontal
+        schoolStack.alignment = .leading
+        schoolStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(schoolStack)
+        schoolStack.anchor(top: schoolCodeStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 12, left: 8, bottom: 0, right: 8))
+        
+        
+        let deptStack = UIStackView(arrangedSubviews: [deptLabel, dept])
+        deptStack.spacing = 10
+        deptStack.axis = .horizontal
+        deptStack.alignment = .leading
+        deptStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(deptStack)
+        deptStack.anchor(top: schoolStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+        
+        
+        let salaryStack = UIStackView(arrangedSubviews: [salaryLabel, salary])
+        salaryStack.spacing = 10
+        salaryStack.axis = .horizontal
+        salaryStack.alignment = .leading
+        salaryStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(salaryStack)
+        salaryStack.anchor(top: deptStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+        
+        
+        let ratioStack = UIStackView(arrangedSubviews: [ratioLabel, ratio])
+        ratioStack.spacing = 10
+        ratioStack.axis = .horizontal
+        ratioStack.alignment = .leading
+        ratioStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(ratioStack)
+        ratioStack.anchor(top: salaryStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+        
+        
+        let lastRatioStack = UIStackView(arrangedSubviews: [lastRatioLabel, lastRatio])
+        lastRatioStack.spacing = 10
+        lastRatioStack.axis = .horizontal
+        lastRatioStack.alignment = .leading
+        lastRatioStack.distribution = .fillEqually
+        
+        viewContraner.addSubview(lastRatioStack)
+        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -152,27 +215,8 @@ class ResultListCell: UICollectionViewCell {
         addSubview(viewContraner)
         viewContraner.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))
         
-        let schoolStack = UIStackView(arrangedSubviews: [schoolCodeLabel, schoolLabel, deptLabel, salaryLabel, ratioLabel, lastRatioLabel])
-        
-        schoolStack.spacing = 20
-        schoolStack.axis = .vertical
-        schoolStack.alignment = .leading
-        schoolStack.distribution = .fillEqually
-        
-        viewContraner.addSubview(schoolStack)
-        schoolStack.anchor(top: viewContraner.topAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 12, left: 8, bottom: 0, right: 8))
-        
-        
-        let rightStack = UIStackView(arrangedSubviews: [schoolCode, school, dept, salary, ratio, lastRatio])
-        
-        rightStack.spacing = 20
-        rightStack.axis = .vertical
-        rightStack.alignment = .leading
-        rightStack.distribution = .fillEqually
-        
-        viewContraner.addSubview(rightStack)
-        rightStack.anchor(top: viewContraner.topAnchor, leading: nil, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 12, left: 0, bottom: 0, right: 28))
-        
+        setupStack()
+
     }
     
     required init?(coder: NSCoder) {
