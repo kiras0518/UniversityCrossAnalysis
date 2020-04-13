@@ -89,3 +89,7 @@ extension Parameterable where Self: Codable {
       .flatMap { $0 as? [String: Any] }
   }
 }
+
+protocol ScoreDescDelegate: class {
+    func didDescButton(desc: ResultParameters)
+}

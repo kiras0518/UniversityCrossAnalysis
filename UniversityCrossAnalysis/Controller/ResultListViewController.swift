@@ -22,12 +22,14 @@ class ResultListViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("viewDidLoad")
         setupCollectionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("viewWillAppear")
+        
         viewModel?.addObserve(completion: { [weak self] (model) in
             guard let model = model else { return }
             self?.dataSource?.update(model)
@@ -35,6 +37,7 @@ class ResultListViewController: UICollectionViewController {
         })
         
         viewModel?.fetch()
+        
     }
     
     init() {
@@ -82,20 +85,30 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = collectionView.frame.width
+        let width = view.frame.width
         
         let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
         
-        if let model = dataSource?.data[indexPath.row] {
-            
-            dummyCell.configCell(model: model)
-            
-        }
+//        if let model = dataSource?.data[indexPath.row] {
+//
+//            dummyCell.configCell(model: model)
+//
+//            dummyCell.layoutIfNeeded()
+//
+//            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+//            print(estimatedSize.height)
+//
+//            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
+//
+//        } else {
+//            print("LESE")
+//        }
         
         dummyCell.layoutIfNeeded()
-        
+//
         let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-        return CGSize.init(width: width, height: 290)
+        
+        return CGSize.init(width: width, height: 300)
         
     }
 }

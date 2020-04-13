@@ -147,10 +147,12 @@ class LodingAnima: UIView {
     }()
     
     lazy var activity: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(style: .large)
+
+        let aiv = UIActivityIndicatorView(style: .gray)
         aiv.color = .darkBColor
         aiv.startAnimating()
         return aiv
+        
     }()
     
     override init(frame: CGRect) {
