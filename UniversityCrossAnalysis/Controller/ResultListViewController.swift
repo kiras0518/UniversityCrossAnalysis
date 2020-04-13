@@ -8,69 +8,33 @@
 
 import UIKit
 
-
-#warning("adjust all of above to model file, instead of ViewController")
-// MARK: Parameterable
-
-protocol Parameterable {
-    func getParameters() -> [String: Any]
-}
-
-extension Parameterable {
-    func getParameters() -> [String: Any] {
-        let mirror = Mirror(reflecting: self)
-        var dictionary = [String: Any]()
-        mirror.children.forEach { (child) in
-            if let key = child.label {
-                dictionary[key] = child.value
-            }
-        }
-        return dictionary
-    }
-}
-
-struct ResultParameters: Codable {
-    var chinese: Int
-    var english: Int
-    var math: Int
-    var society: Int
-    var science: Int
-    var engListeningLevel: String
-    var salary: Int
-}
-
-
-extension ResultParameters: Parameterable { }
-#warning("end here")
-
 protocol ViewControllersFactory {
     associatedtype ViewController
     associatedtype Parameters
-
+    
     static func makeInitateViewController(parameters: Parameters) -> ViewController
 }
 
 class ResultListViewController: UICollectionViewController {
-
-
+    
     private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionView()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.addObserve(completion: { [weak self] (model) in
-             guard let model = model else { return }
-             self?.dataSource?.update(model)
-             self?.dataSource?.reloadData()
-         })
-//
-         viewModel?.fetch()
+            guard let model = model else { return }
+            self?.dataSource?.update(model)
+            self?.dataSource?.reloadData()
+        })
+        
+        viewModel?.fetch()
     }
     
     init() {
@@ -85,7 +49,7 @@ class ResultListViewController: UICollectionViewController {
         collectionView.register(ResultListCell.self, forCellWithReuseIdentifier: ResultListCell.identifier)
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
-
+        
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
     }
@@ -93,16 +57,16 @@ class ResultListViewController: UICollectionViewController {
     deinit {
         viewModel?.removeObserve()
     }
-
+    
 }
 
 
 // MARK: - ViewControllersFactory
 extension ResultListViewController: ViewControllersFactory {
-    
+    //遵從 protocol 的型別裡以 typealias 指定
     typealias ViewController = ResultListViewController
     typealias Parameters = ResultParameters
-
+    
     static func makeInitateViewController(parameters: ResultParameters) -> ResultListViewController {
         let vc = ResultListViewController()
         vc.dataSource = ResultListDataSource()
@@ -110,7 +74,7 @@ extension ResultListViewController: ViewControllersFactory {
         vc.viewModel = ResultViewModel(parameters: parameters)
         return vc
     }
-
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -122,12 +86,16 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         
         let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
         
-        dummyCell.layoutIfNeeded()
-    
-        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        if let model = dataSource?.data[indexPath.row] {
+            
+            dummyCell.configCell(model: model)
+            
+        }
         
-        return CGSize.init(width: width, height: 300)
-
+        dummyCell.layoutIfNeeded()
+        
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        return CGSize.init(width: width, height: 290)
+        
     }
-    
 }

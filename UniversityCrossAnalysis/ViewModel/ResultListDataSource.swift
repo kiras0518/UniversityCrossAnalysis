@@ -10,7 +10,7 @@ import UIKit
 
 class ResultListDataSource: NSObject {
     
-    private var data: [ResultSchool] = []
+    var data: [ResultSchool] = []
     private weak var collectionView: UICollectionView?
     private weak var layout: UICollectionViewFlowLayout?
     
@@ -18,11 +18,13 @@ class ResultListDataSource: NSObject {
         self.collectionView = collectionView
         
     }
+    
     // TODO: we need to consider dataStructure of this model(data)
     func update(_ models: [ResultSchool]) {
         self.data += models
         
     }
+    
     func reloadData() {
         collectionView?.reloadData()
     }
@@ -48,7 +50,7 @@ extension ResultListDataSource: UICollectionViewDataSource {
         
         let model = data[indexPath.row]
         cell.configCell(model: model)
-        
+        //cell.configCell1(model: [model])
         return cell
     }
 }

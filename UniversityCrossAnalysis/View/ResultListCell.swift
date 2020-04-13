@@ -25,6 +25,17 @@ class ResultListCell: UICollectionViewCell {
         lastRatio.text = model.lastCriterion
     }
     
+    func configCell1(model: [ResultSchool]) {
+        for x in model {
+            schoolCode.text = x.did
+            school.text = x.uname
+            dept.text = x.dname
+            salary.text = "$" + String(x.salary ?? 0)
+            ratio.text = x.rateOfThisYear
+            lastRatio.text = x.lastCriterion
+        }
+    }
+    
     lazy var schoolCodeLabel: UILabel = {
         let lb = UILabel()
         
