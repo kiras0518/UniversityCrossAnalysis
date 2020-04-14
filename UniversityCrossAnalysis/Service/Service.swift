@@ -61,6 +61,22 @@ class Service {
             completion(.failure(error))
         }
     }
+    
+    func fetchPredictionData(completion: @escaping (GeneralCategory?, Error?) -> ()) {
+        
+        guard let data = predictionJSONData else { return }
+        
+        do {
+            let resultJSON = try JSONDecoder().decode(GeneralCategory.self, from: data)
+        
+            completion(resultJSON, nil)
+            
+        } catch let jsonErr {
+            
+            print("Failed to Prediction Decode:", jsonErr)
+            completion(nil, jsonErr)
+        }
+    }
 
     
     func fetchData(completion: @escaping (Base?, Error?) -> ()) {

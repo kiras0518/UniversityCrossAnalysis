@@ -222,7 +222,7 @@ class GsatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
         setupView()
         creatEn()
         hideKeyboardWhenTappedAround()
