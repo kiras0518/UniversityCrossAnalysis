@@ -136,6 +136,26 @@ extension UIColor {
     @nonobjc class var lightDarkPink: UIColor {
         return UIColor(red: 235 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var waterBlueColor: UIColor {
+        return UIColor(red: 84 / 255.0, green: 192 / 255.0, blue: 220 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var redPinkColor: UIColor {
+        return UIColor(red: 240 / 255.0, green: 67 / 255.0, blue: 108 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var paperBlueColor: UIColor {
+        return UIColor(red: 94 / 255.0, green: 89 / 255.0, blue: 152 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var darkBlueColor: UIColor {
+        return UIColor(red: 75 / 255.0, green: 62 / 255.0, blue: 92 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var graylightColor: UIColor {
+        return UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 1.0)
+    }
 }
 
 class LodingAnima: UIView {

@@ -12,9 +12,9 @@ import Alamofire
 class Service {
     
     static let shared = Service()
-
+    
     private let session: Session = Session()
-
+    
     let engListenScoreKey = "EngListeningLevel"
     let chineseKey = "Chinese"
     let englishKey = "English"
@@ -28,14 +28,14 @@ class Service {
     let locationKey = "location"
     let groupsKey = "groups"
     let salaryKey = "expect_salary"
-
+    
     func request<T: Codable>(_ request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
         do {
             let request = try request.asURLRequest()
-
+            
             session.request(request).responseData { (response) in
                 if let statusCode = response.response?.statusCode, (200..<400) ~= statusCode {
-
+                    
                     if let data = response.data {
                         
                         guard let model = try? JSONDecoder().decode(T.self, from: data) else {
@@ -43,7 +43,7 @@ class Service {
                             completion(.failure(CustomError.decoderError))
                             return
                         }
-
+                        
                         completion(.success(model))
                         
                     } else {
@@ -55,32 +55,35 @@ class Service {
                     completion(.failure(CustomError.networkError(response.error)))
                 }
             }
-
+            
         } catch {
             // TODO: need to handle and define some error
             completion(.failure(error))
         }
     }
     
-    func fetchPredictionData(completion: @escaping (GeneralCategory?, Error?) -> ()) {
+    func fetchPredictionData(completion: @escaping (BaseSchool?, Error?) -> ()) {
         
         guard let data = predictionJSONData else { return }
         
         do {
-            let resultJSON = try JSONDecoder().decode(GeneralCategory.self, from: data)
-        
-            completion(resultJSON, nil)
+            let resultJSON = try JSONDecoder().decode(BaseSchool.self, from: data)
+            
+            print("BaseSchool Decode OK")
+            
+            DispatchQueue.main.async {
+                completion(resultJSON, nil)
+            }
             
         } catch let jsonErr {
-            
             print("Failed to Prediction Decode:", jsonErr)
             completion(nil, jsonErr)
         }
     }
-
     
+    // 測試用請忽略
     func fetchData(completion: @escaping (Base?, Error?) -> ()) {
-        let urlString = ""
+        let urlString = "http://predict.chu.edu.tw/2020/gsat/api/GSAT/analysis"
         
         guard let url = URL(string: urlString) else { return }
         
@@ -113,26 +116,26 @@ class Service {
     
     func setupRequest1<T: Codable>(_ dataRequest: DataRequest, _ type: T.Type, completion: @escaping (Result<T, Error>) -> ()) {
         dataRequest.validate().responseJSON { (response) in
-    
-                switch response.result {
+            
+            switch response.result {
+                
+            case .success(let json):
+                do {
+                    print("Validation Successful")
                     
-                case .success(let json):
-                    do {
-                        print("Validation Successful")
-                        
-                        let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-                        let content = try JSONDecoder().decode(T.self, from: jsonData)
-                        
-                        completion(.success(content))
-                    } catch let error {
-                        print("decoderError", error)
-                        completion(.failure(error))
-                    }
+                    let jsonData = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+                    let content = try JSONDecoder().decode(T.self, from: jsonData)
                     
-                case .failure(let error):
-                    print("requestError", error)
-                    
+                    completion(.success(content))
+                } catch let error {
+                    print("decoderError", error)
+                    completion(.failure(error))
                 }
+                
+            case .failure(let error):
+                print("requestError", error)
+                
+            }
         }
     }
     
@@ -141,10 +144,10 @@ class Service {
         let parameters = Input(grades: Grades(gsat: Gsat(chinese: chinese, english: english, math: math, science: science, society: society, engListeningLevel: engListeningLevel)), groups: UserDataSources.shared.groups, location: UserDataSources.shared.location, property: UserDataSources.shared.propertySchool, expect_salary: salary)
         
         AF.request(apiUrl!, method: .post,
-                                 parameters: parameters,
-                                 encoder: JSONParameterEncoder.default,
-                                 headers: nil,
-                                 interceptor: nil)
+                   parameters: parameters,
+                   encoder: JSONParameterEncoder.default,
+                   headers: nil,
+                   interceptor: nil)
             .response { (response) in
                 //debugPrint("post", response)
                 switch response.result {
