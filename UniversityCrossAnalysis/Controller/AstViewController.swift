@@ -127,7 +127,8 @@ class AstViewController: UIViewController {
     func setupView() {
         view.addSubview(containerView)
         containerView.fillSuperview()
- 
+        let safeArea = self.view.safeAreaLayoutGuide
+        
         let btnStack = UIStackView(arrangedSubviews: [schoolBtn, groopsBtn, departBtn])
         btnStack.spacing = 10
         btnStack.axis = .horizontal
@@ -135,12 +136,11 @@ class AstViewController: UIViewController {
         btnStack.distribution = .fillEqually
         
         containerView.addSubview(btnStack)
-        btnStack.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 100, left: 18, bottom: 0, right: 18))
+        btnStack.anchor(top: safeArea.topAnchor, leading: containerView.leadingAnchor, bottom: nil, trailing: containerView.trailingAnchor, padding: .init(top: 18, left: 18, bottom: 0, right: 18))
         
         containerView.addSubview(containerChartView)
-        containerChartView.centerInSuperview()
-        containerChartView.anchor(top: containerView.topAnchor, leading: containerView.leadingAnchor, bottom: containerView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 150, left: 18, bottom: 150, right: 18))
-        
+        containerChartView.anchor(top: btnStack.bottomAnchor, leading: containerView.leadingAnchor, bottom: safeArea.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 28, left: 18, bottom: 18, right: 18))
+
         containerChartView.addSubview(chartView)
         chartView.anchor(top: containerChartView.topAnchor, leading: containerChartView.leadingAnchor, bottom: containerChartView.bottomAnchor, trailing: containerChartView.trailingAnchor)
     }
