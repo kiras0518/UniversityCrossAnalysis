@@ -148,6 +148,7 @@ class GsatViewController: UIViewController {
     }()
     
     weak var doneButtonDelegate: ScoreDescDelegate?
+    var btnStatus: Bool = false
     
     lazy var doneButton: CustomButton = {
         let bt = CustomButton()
@@ -157,54 +158,22 @@ class GsatViewController: UIViewController {
         bt.actionObserver = { [weak self] in
             print("資料送出")
             
-            guard let chineseText = self?.chineseTextField.text?.toInt() else { return }
-            guard let englishText = self?.englishTextField.text?.toInt() else { return }
-            guard let mathematicsText = self?.mathematicsTextField.text?.toInt() else { return }
-            guard let socialStudiesText = self?.socialStudiesTextField.text?.toInt() else { return }
-            guard let scienceText = self?.scienceTextField.text?.toInt() else { return }
-            guard let salaryText = self?.salaryTextField.text?.toInt() else { return }
-            guard let enListenText = self?.enListenTextField.text else { return }
+            guard let self = self else { return }
             
-            self?.doneButtonDelegate?.didDescButton(desc: ResultParameters(chinese: chineseText, english: englishText, math: mathematicsText, society: socialStudiesText, science: scienceText, engListeningLevel: enListenText, salary: salaryText))
+            if self.btnStatus {
+                
+                self.handlePostData()
+                
+            } else {
+                
+                self.presentAlert()
+            }
+            
         }
         
         return bt
     }()
     
-    private func checkStatus(isEnabled: Bool = false) {
-        let titleColor: UIColor = isEnabled ? .white : .greenColor
-        doneButton.isEnabled = isEnabled
-        doneButton.setTitleColor(titleColor, for: .normal)
-        doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
-    }
-    
-    //    lazy var doneButton: UIButton = {
-    //        let bt = UIButton()
-    //        bt.backgroundColor = .greenColor
-    //        bt.layer.cornerRadius = 4
-    //        bt.setTitle("開始分析", for: .normal)
-    //        bt.addTarget(self, action: #selector(doneClick), for: .touchUpInside)
-    //
-    //        return bt
-    //    }()
-    //
-    //    @objc func doneClick() {
-    //
-    //        print("doneClick DONE")
-    //
-    //        guard let chineseText = chineseTextField.text?.toInt() else { return }
-    //        guard let englishText = englishTextField.text?.toInt() else { return }
-    //        guard let mathematicsText = mathematicsTextField.text?.toInt() else { return }
-    //        guard let socialStudiesText = socialStudiesTextField.text?.toInt() else { return }
-    //        guard let scienceText = scienceTextField.text?.toInt() else { return }
-    //        guard let salaryText = salaryTextField.text?.toInt() else { return }
-    //        guard let enListenText = enListenTextField.text else { return }
-    //
-    //        print("chineseText", chineseText, englishText, mathematicsText,socialStudiesText, scienceText,salaryText, enListenText)
-    //
-    //        let vc = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: chineseText, english: englishText, math: mathematicsText, society: socialStudiesText, science: scienceText, engListeningLevel: enListenText, salary: salaryText))
-    //        self.navigationController?.pushViewController(vc, animated: true)
-    //    }
     
     lazy var enPicker: UIPickerView = {
         let pkv = UIPickerView()
@@ -222,7 +191,7 @@ class GsatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         setupView()
         creatEn()
         hideKeyboardWhenTappedAround()
@@ -272,25 +241,36 @@ class GsatViewController: UIViewController {
 
 extension GsatViewController: UITextFieldDelegate {
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let currentText = textField.text ?? ""
-        
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        
-        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
-        
-        checkStatus(isEnabled: !inputText.isEmpty)
-        
-        return true
-    }
-    
-    //    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    //        //print("ABC", chineseTextField.text!, mathematicsTextField.text!)
+    //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //
+    //        let currentText = textField.text ?? ""
+    //
+    //        guard let stringRange = Range(range, in: currentText) else { return false }
+    //
+    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
+    //
+    //        checkStatus(isEnabled: !inputText.isEmpty)
     //
     //        return true
     //    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        let mathText = mathematicsTextField.text ?? ""
+        let chinessText = chineseTextField.text ?? ""
+        let engText = englishTextField.text ?? ""
+        let sciText = scienceTextField.text ?? ""
+        let socText = socialStudiesTextField.text ?? ""
+        
+        let status = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
+            && !sciText.isEmpty && !socText.isEmpty)
+        
+        //print(status)
+        btnStatus = status
+        checkStatus(isEnabled: status)
+        
+        return true
+    }
     
     // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
     func hideKeyboardWhenTappedAround() {
@@ -335,5 +315,62 @@ extension GsatViewController: ScoreDescDelegate {
     func didDescButton(desc: ResultParameters) {
         let vc = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: desc.chinese, english: desc.english, math: desc.math, society: desc.society, science: desc.science, engListeningLevel: desc.engListeningLevel, salary: desc.salary))
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension GsatViewController {
+    
+    private func checkStatus(isEnabled: Bool = false) {
+        let titleColor: UIColor = isEnabled ? .white : .greenColor
+        doneButton.isEnabled = isEnabled
+        doneButton.setTitleColor(titleColor, for: .normal)
+        doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
+    }
+    
+    private func presentAlert() {
+        let alertCV = UIAlertController(title: "ERROR", message: "你輸入的值有錯誤！" + "\n分數為 1~15 級分", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+        
+        alertCV.addAction(action)
+        
+        present(alertCV, animated: true, completion: nil)
+    }
+    
+    private func handlePostData() {
+        guard let chineseText = chineseTextField.text, !chineseText.isEmpty else {
+            return
+        }
+        
+        guard let englishText = englishTextField.text, !englishText.isEmpty else {
+            return
+        }
+        
+        guard let mathText = mathematicsTextField.text, !mathText.isEmpty else { return
+        }
+        
+        guard let socialText = socialStudiesTextField.text, !socialText.isEmpty else {
+            return
+        }
+        
+        guard let scienceText = scienceTextField.text, !scienceText.isEmpty else {
+            return
+        }
+        
+        guard let salaryText = salaryTextField.text else {
+            return
+        }
+        
+        guard let enListenText = enListenTextField.text else {
+            return
+        }
+        
+        self.doneButtonDelegate?.didDescButton(desc: ResultParameters(chinese: chineseText.toInt() ?? 1,
+                                                                      english: englishText.toInt() ?? 1,
+                                                                      math: mathText.toInt() ?? 1,
+                                                                      society: socialText.toInt() ?? 1,
+                                                                      science: scienceText.toInt() ?? 1,
+                                                                      engListeningLevel: enListenText,
+                                                                      salary: salaryText.toInt() ?? 0))
     }
 }
