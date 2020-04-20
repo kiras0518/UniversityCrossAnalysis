@@ -7,6 +7,14 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIAlertController {
+    
+//    convenience init(deletionHandler: @escaping() -> ()) {
+//        self.init
+//    }
+}
 
 extension String {
     // Converts String to Int

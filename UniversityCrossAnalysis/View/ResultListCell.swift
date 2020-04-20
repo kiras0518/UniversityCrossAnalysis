@@ -228,7 +228,7 @@ class ResultListCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 1, height: 1) //陰影偏移量
         layer.shadowRadius = 1 //模糊計算的半徑
         layer.shadowOpacity = 1 //陰影透明度
-        layer.shouldRasterize = true
-        backgroundView?.layer.shouldRasterize = true
+        //layer.shouldRasterize = true
+        //backgroundView?.layer.shouldRasterize = true
     }
 }
