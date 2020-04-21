@@ -25,7 +25,7 @@ class ResultListCell: UICollectionViewCell {
         lastRatio.text = model.lastCriterion
     }
     
-    lazy var schoolCodeLabel: UILabel = {
+    let schoolCodeLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "校系代碼"
@@ -34,7 +34,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var schoolCode: UILabel = {
+    let schoolCode: UILabel = {
         let lb = UILabel()
         
         lb.text = "9527"
@@ -43,7 +43,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var schoolLabel: UILabel = {
+    let schoolLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "校名"
@@ -52,7 +52,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var school: UILabel = {
+    let school: UILabel = {
         let lb = UILabel()
         
         lb.text = "NTHU"
@@ -61,7 +61,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var deptLabel: UILabel = {
+    let deptLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "科系名稱"
@@ -70,7 +70,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var dept: UILabel = {
+    let dept: UILabel = {
         let lb = UILabel()
         
         lb.text = "XX學系"
@@ -80,7 +80,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var salaryLabel: UILabel = {
+    let salaryLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "畢業校友平均薪資"
@@ -89,7 +89,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var salary: UILabel = {
+    let salary: UILabel = {
         let lb = UILabel()
         
         lb.text = "50000"
@@ -98,7 +98,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var ratioLabel: UILabel = {
+    let ratioLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "今年篩選倍率"
@@ -107,7 +107,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var ratio: UILabel = {
+    let ratio: UILabel = {
         let lb = UILabel()
         
         lb.text = "英 * 3, 數 * 4, 自 * 6"
@@ -117,7 +117,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var lastRatioLabel: UILabel = {
+    let lastRatioLabel: UILabel = {
         let lb = UILabel()
         
         lb.text = "去年倍率最低級分"
@@ -127,7 +127,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var lastRatio: UILabel = {
+    let lastRatio: UILabel = {
         let lb = UILabel()
         
         lb.text = "自=8, 數=10, 英=11"
@@ -136,7 +136,7 @@ class ResultListCell: UICollectionViewCell {
         return lb
     }()
     
-    lazy var viewContraner: UIView = {
+    let viewContraner: UIView = {
         let iv = UIView()
         
         iv.backgroundColor = .white
@@ -156,7 +156,6 @@ class ResultListCell: UICollectionViewCell {
         
         viewContraner.addSubview(schoolCodeStack)
         schoolCodeStack.anchor(top: viewContraner.topAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
-        
         
         let schoolStack = UIStackView(arrangedSubviews: [schoolLabel, school])
         schoolStack.spacing = 10
@@ -205,14 +204,14 @@ class ResultListCell: UICollectionViewCell {
         lastRatioStack.distribution = .fillEqually
         
         viewContraner.addSubview(lastRatioStack)
-        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 18, right: 8))
+        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(viewContraner)
-        viewContraner.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))
+        viewContraner.fillSuperview(padding: .init(top: 18, left: 18, bottom: 18, right: 18))
         
         setupStack()
         

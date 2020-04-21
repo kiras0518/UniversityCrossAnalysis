@@ -52,7 +52,6 @@ class ResultListViewController: UICollectionViewController {
         collectionView.register(ResultListCell.self, forCellWithReuseIdentifier: ResultListCell.identifier)
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
-        
         collectionView.dataSource = dataSource
         collectionView.backgroundColor = .blueColor
     }
@@ -88,6 +87,10 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.width
         
         let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+
+        let model = dataSource?.data[indexPath.row]
+
+        dummyCell.configCell(model: model!)
         
 //        if let model = dataSource?.data[indexPath.row] {
 //
@@ -103,12 +106,15 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
 //        } else {
 //            print("LESE")
 //        }
+//        // Get cell size
+//        dummyCell.setNeedsLayout()
+//        dummyCell.layoutIfNeeded()
+////
+//        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
-        dummyCell.layoutIfNeeded()
-//
-        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        let size = dummyCell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         
-        return CGSize.init(width: width, height: 300)
+        return CGSize.init(width: width, height: 320)
         
     }
 }
