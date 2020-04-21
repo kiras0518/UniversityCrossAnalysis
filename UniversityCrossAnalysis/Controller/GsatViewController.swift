@@ -219,21 +219,21 @@ class GsatViewController: UIViewController {
         backView.addSubview(salaryTextField)
         containerView.addSubview(doneButton)
         
-        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
+        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
-        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 30, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 42))
+        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 0, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
         
     }
     
@@ -328,7 +328,7 @@ extension GsatViewController {
     }
     
     private func presentAlert() {
-        let alertCV = UIAlertController(title: "ERROR", message: "你輸入的值有錯誤！" + "\n分數為 1~15 級分", preferredStyle: .alert)
+        let alertCV = UIAlertController(title: "你輸入的值有錯誤！", message: "分數為 1~15 級分", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "確定", style: .default, handler: nil)
         
