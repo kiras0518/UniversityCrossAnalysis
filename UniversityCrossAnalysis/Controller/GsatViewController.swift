@@ -219,21 +219,21 @@ class GsatViewController: UIViewController {
         backView.addSubview(salaryTextField)
         containerView.addSubview(doneButton)
         
-        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
-        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 0, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 42 * ScreenConfigs.heightScreenScaleFactor))
+        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 0, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
         
     }
     
@@ -241,17 +241,37 @@ class GsatViewController: UIViewController {
 
 extension GsatViewController: UITextFieldDelegate {
     
-    //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     //
-    //        let currentText = textField.text ?? ""
+    //    //        let mathText = mathematicsTextField.text ?? ""
+    //    //        let chinessText = chineseTextField.text ?? ""
+    //    //        let engText = englishTextField.text ?? ""
+    //    //        let sciText = scienceTextField.text ?? ""
+    //    //        let socText = socialStudiesTextField.text ?? ""
+    //    //        //let enListenText = enListenTextField.text ?? ""
+    //    //        let currentText = textField.text ?? ""
+    //    //
+    //    //        let mathVS = (mathText.toInt() ?? 1 > 0 && mathText.toInt() ?? 1 <= 15)
+    //    //        let chinessVS = (chinessText.toInt() ?? 1 > 0 && chinessText.toInt() ?? 1 <= 15)
+    //    //        let engVS = (engText.toInt() ?? 1 > 0 && engText.toInt() ?? 1 <= 15)
+    //    //        let sciVS = (sciText.toInt() ?? 1 > 0 && sciText.toInt() ?? 1 <= 15)
+    //    //        let socVS = (socText.toInt() ?? 1 > 0 && socText.toInt() ?? 1 <= 15)
+    //    //
+    //    //
+    //    //        if mathVS {
+    //    //            print("BBBB")
+    //    //            return true
+    //    //        } else {
+    //    //            print("AAAA")
+    //    //            return false
+    //    //        }
     //
-    //        guard let stringRange = Range(range, in: currentText) else { return false }
     //
-    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
+    //    //        guard let stringRange = Range(range, in: currentText) else { return false }
+    //    //
+    //    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
+    //    //
     //
-    //        checkStatus(isEnabled: !inputText.isEmpty)
-    //
-    //        return true
     //    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -261,15 +281,27 @@ extension GsatViewController: UITextFieldDelegate {
         let engText = englishTextField.text ?? ""
         let sciText = scienceTextField.text ?? ""
         let socText = socialStudiesTextField.text ?? ""
+        let enListenText = enListenTextField.text ?? ""
         
-        let status = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
-            && !sciText.isEmpty && !socText.isEmpty)
-        
-        //print(status)
-        btnStatus = status
-        checkStatus(isEnabled: status)
-        
-        return true
+        let mathVS = (mathText.toInt() ?? 1 > 15 || mathText.toInt() ?? 1 < 1)
+        let chinessVS = (chinessText.toInt() ?? 1 > 15 || chinessText.toInt() ?? 1 < 1)
+        let engVS = (engText.toInt() ?? 1 > 15 || engText.toInt() ?? 1 < 1)
+        let sciVS = (sciText.toInt() ?? 1 > 15 || sciText.toInt() ?? 1 < 1)
+        let socVS = (socText.toInt() ?? 1 > 15 || socText.toInt() ?? 1 < 1)
+        let vsStatus = (mathVS || chinessVS || engVS || sciVS || socVS)
+        if vsStatus {
+            //print("不能", vsStatus)
+            return false
+        } else {
+            //print("OK", vsStatus)
+            let emptyStatus = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
+                && !sciText.isEmpty && !socText.isEmpty && !enListenText.isEmpty)
+            
+            btnStatus = emptyStatus
+            checkStatus(isEnabled: (emptyStatus))
+            
+            return true
+        }
     }
     
     // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
@@ -365,12 +397,13 @@ extension GsatViewController {
             return
         }
         
-        self.doneButtonDelegate?.didDescButton(desc: ResultParameters(chinese: chineseText.toInt() ?? 1,
-                                                                      english: englishText.toInt() ?? 1,
-                                                                      math: mathText.toInt() ?? 1,
-                                                                      society: socialText.toInt() ?? 1,
-                                                                      science: scienceText.toInt() ?? 1,
-                                                                      engListeningLevel: enListenText,
-                                                                      salary: salaryText.toInt() ?? 0))
+        self.doneButtonDelegate?.didDescButton(desc: ResultParameters(
+            chinese: chineseText.toInt() ?? 1,
+            english: englishText.toInt() ?? 1,
+            math: mathText.toInt() ?? 1,
+            society: socialText.toInt() ?? 1,
+            science: scienceText.toInt() ?? 1,
+            engListeningLevel: enListenText,
+            salary: salaryText.toInt() ?? 0))
     }
 }
