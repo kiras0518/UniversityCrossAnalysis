@@ -132,6 +132,30 @@ extension UIColor {
     @nonobjc class var veryLightPink: UIColor {
         return UIColor(white: 240.0 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var lightDarkPink: UIColor {
+        return UIColor(red: 235 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var waterBlueColor: UIColor {
+        return UIColor(red: 84 / 255.0, green: 192 / 255.0, blue: 220 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var redPinkColor: UIColor {
+        return UIColor(red: 240 / 255.0, green: 67 / 255.0, blue: 108 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var paperBlueColor: UIColor {
+        return UIColor(red: 94 / 255.0, green: 89 / 255.0, blue: 152 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var darkBlueColor: UIColor {
+        return UIColor(red: 75 / 255.0, green: 62 / 255.0, blue: 92 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var graylightColor: UIColor {
+        return UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 1.0)
+    }
 }
 
 class LodingAnima: UIView {
@@ -143,10 +167,12 @@ class LodingAnima: UIView {
     }()
     
     lazy var activity: UIActivityIndicatorView = {
-        let aiv = UIActivityIndicatorView(style: .large)
+
+        let aiv = UIActivityIndicatorView(style: .gray)
         aiv.color = .darkBColor
         aiv.startAnimating()
         return aiv
+        
     }()
     
     override init(frame: CGRect) {
@@ -160,5 +186,39 @@ class LodingAnima: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+public class CustomButton: UIButton {
+    var actionObserver: CompletionHandler?
+    
+    public override var isEnabled: Bool {
+        didSet {
+            // true
+            if isEnabled {
+                backgroundColor = .greenColor
+            } else {
+                backgroundColor = .lightDarkPink
+            }
+        }
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        backgroundColor = .lightDarkPink
+        titleLabel?.textColor = .greenColor
+        
+        layer.cornerRadius = 4
+        clipsToBounds = true
+        
+        self.addTarget(self, action: #selector(handleAction), for: .touchUpInside)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func handleAction() {
+        actionObserver?()
     }
 }

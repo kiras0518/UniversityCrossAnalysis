@@ -10,17 +10,21 @@ import UIKit
 
 class ResultListDataSource: NSObject {
     
-    private var data: [Base] = []
+    var data: [ResultSchool] = []
     private weak var collectionView: UICollectionView?
-
+    private weak var layout: UICollectionViewFlowLayout?
+    
     func inject(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
+        
     }
+    
     // TODO: we need to consider dataStructure of this model(data)
-    func update(data: Base) {
-        self.data += [data]
-
+    func update(_ models: [ResultSchool]) {
+        self.data += models
+        
     }
+    
     func reloadData() {
         collectionView?.reloadData()
     }
@@ -28,50 +32,26 @@ class ResultListDataSource: NSObject {
 
 // MARK: - UICollectionViewDataSource
 extension ResultListDataSource: UICollectionViewDataSource {
-        func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            return data.count
-           
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultListCell.identifier, for: indexPath) as? ResultListCell else {
-                fatalError("Cannot dequeue reusable cell")
-            }
-            
-    //        let model = data.value[indexPath.row]
-    //        cell.configCell(model: model)
-            
-            return cell
-        }
-}
-// MARK: - UICollectionViewDelegateFlowLayout
-extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-
-        let width = collectionView.frame.width
-        
-        return CGSize.init(width: width, height: 260)
-
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    deinit {
-        print("deinit ResultListDataSource")
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return data.count
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultListCell.identifier, for: indexPath) as? ResultListCell else {
+            fatalError("Cannot dequeue reusable cell")
+        }
+        
+        let model = data[indexPath.row]
+        cell.configCell(model: model)
+        //cell.configCell1(model: [model])
+        return cell
     }
 }
 
-extension ResultListDataSource: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let width = collectionView.frame.width
-
-        return CGSize.init(width: width, height: 260)
-    }
-}

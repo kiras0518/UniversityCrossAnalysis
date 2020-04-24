@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class GsatViewController: UIViewController {
     
@@ -16,7 +15,7 @@ class GsatViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView(frame: .zero)
         
-        sv.backgroundColor = .red
+        sv.backgroundColor = .lightDarkPink
         sv.frame = self.view.bounds
         sv.contentSize = contentViewSize
         sv.autoresizingMask = .flexibleHeight
@@ -53,6 +52,8 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
@@ -66,6 +67,8 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
@@ -79,6 +82,8 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
@@ -92,6 +97,8 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
@@ -105,6 +112,8 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
@@ -118,6 +127,7 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.delegate = self
         
         return tf
     }()
@@ -131,43 +141,39 @@ class GsatViewController: UIViewController {
         tf.textAlignment = .center
         tf.layer.borderColor = UIColor.white.cgColor
         tf.layer.borderWidth = 1
+        tf.keyboardType = .numberPad
+        tf.delegate = self
         
         return tf
     }()
     
-    lazy var doneButton: UIButton = {
-        let bt = UIButton()
-        bt.backgroundColor = .greenColor
-        bt.layer.cornerRadius = 4
+    weak var doneButtonDelegate: ScoreDescDelegate?
+    var btnStatus: Bool = false
+    
+    lazy var doneButton: CustomButton = {
+        let bt = CustomButton()
         bt.setTitle("開始分析", for: .normal)
-        bt.addTarget(self, action: #selector(doneClick), for: .touchUpInside)
+        bt.setTitleColor(.greenColor, for: .normal)
+        
+        bt.actionObserver = { [weak self] in
+            print("資料送出")
+            
+            guard let self = self else { return }
+            
+            if self.btnStatus {
+                
+                self.handlePostData()
+                
+            } else {
+                
+                self.presentAlert()
+            }
+            
+        }
         
         return bt
     }()
     
-    @objc func doneClick() {
-        
-        print("doneClick DONE")
-        
-        let vc1 = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: 10, english: 10, math: 10, society: 10, science: 10, engListeningLevel: "A", salary: 50000))
-        self.navigationController?.pushViewController(vc1, animated: true)
-
-        
-//        guard let chineseText = chineseTextField.text?.toInt(),
-//            let englishText = englishTextField.text?.toInt(),
-//        let mathematicsText = mathematicsTextField.text?.toInt(),
-//        let socialStudiesText = socialStudiesTextField.text?.toInt(),
-//        let scienceText = scienceTextField.text?.toInt(),
-//        let salaryText = salaryTextField.text?.toInt() else { return print("Text Error")}
-        
-//        guard let chineseText = chineseTextField.text as? Int,
-//                    let englishText = englishTextField.text as? Int,
-//                    let mathematicsText = mathematicsTextField.text as? Int,
-//                    let socialStudiesText = socialStudiesTextField.text as? Int,
-//                    let scienceText = scienceTextField.text as? Int,
-//                    let salaryText = salaryTextField.text as? Int else { return }
-        
-    }
     
     lazy var enPicker: UIPickerView = {
         let pkv = UIPickerView()
@@ -188,6 +194,8 @@ class GsatViewController: UIViewController {
         
         setupView()
         creatEn()
+        hideKeyboardWhenTappedAround()
+        doneButtonDelegate = self
     } 
     
     private func setupNav() {
@@ -211,24 +219,106 @@ class GsatViewController: UIViewController {
         backView.addSubview(salaryTextField)
         containerView.addSubview(doneButton)
         
-        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 42))
-
-        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 30, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 42))
-
+        chineseTextField.anchor(top: backView.topAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 30 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        englishTextField.anchor(top: chineseTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        mathematicsTextField.anchor(top: englishTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        socialStudiesTextField.anchor(top: mathematicsTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        scienceTextField.anchor(top: socialStudiesTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        enListenTextField.anchor(top: scienceTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        salaryTextField.anchor(top: enListenTextField.bottomAnchor, leading: backView.leadingAnchor, bottom: nil, trailing: backView.trailingAnchor, padding: .init(top: 25 * ScreenConfigs.heightScreenScaleFactor, left: 30, bottom: 0, right: 30), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
+        doneButton.anchor(top: nil, leading: containerView.leadingAnchor, bottom: backView.bottomAnchor, trailing: containerView.trailingAnchor, padding: .init(top: 0, left: 100, bottom: 38, right: 100), size: .init(width: 0, height: 50 * ScreenConfigs.heightScreenScaleFactor))
+        
     }
     
+}
+
+extension GsatViewController: UITextFieldDelegate {
+    
+    //        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    //
+    //    //        let mathText = mathematicsTextField.text ?? ""
+    //    //        let chinessText = chineseTextField.text ?? ""
+    //    //        let engText = englishTextField.text ?? ""
+    //    //        let sciText = scienceTextField.text ?? ""
+    //    //        let socText = socialStudiesTextField.text ?? ""
+    //    //        //let enListenText = enListenTextField.text ?? ""
+    //    //        let currentText = textField.text ?? ""
+    //    //
+    //    //        let mathVS = (mathText.toInt() ?? 1 > 0 && mathText.toInt() ?? 1 <= 15)
+    //    //        let chinessVS = (chinessText.toInt() ?? 1 > 0 && chinessText.toInt() ?? 1 <= 15)
+    //    //        let engVS = (engText.toInt() ?? 1 > 0 && engText.toInt() ?? 1 <= 15)
+    //    //        let sciVS = (sciText.toInt() ?? 1 > 0 && sciText.toInt() ?? 1 <= 15)
+    //    //        let socVS = (socText.toInt() ?? 1 > 0 && socText.toInt() ?? 1 <= 15)
+    //    //
+    //    //
+    //    //        if mathVS {
+    //    //            print("BBBB")
+    //    //            return true
+    //    //        } else {
+    //    //            print("AAAA")
+    //    //            return false
+    //    //        }
+    //
+    //
+    //    //        guard let stringRange = Range(range, in: currentText) else { return false }
+    //    //
+    //    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
+    //    //
+    //
+    //    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        let mathText = mathematicsTextField.text ?? ""
+        let chinessText = chineseTextField.text ?? ""
+        let engText = englishTextField.text ?? ""
+        let sciText = scienceTextField.text ?? ""
+        let socText = socialStudiesTextField.text ?? ""
+        let enListenText = enListenTextField.text ?? ""
+        
+        let mathVS = (mathText.toInt() ?? 1 > 15 || mathText.toInt() ?? 1 < 1)
+        let chinessVS = (chinessText.toInt() ?? 1 > 15 || chinessText.toInt() ?? 1 < 1)
+        let engVS = (engText.toInt() ?? 1 > 15 || engText.toInt() ?? 1 < 1)
+        let sciVS = (sciText.toInt() ?? 1 > 15 || sciText.toInt() ?? 1 < 1)
+        let socVS = (socText.toInt() ?? 1 > 15 || socText.toInt() ?? 1 < 1)
+        let vsStatus = (mathVS || chinessVS || engVS || sciVS || socVS)
+        if vsStatus {
+            //print("不能", vsStatus)
+            return false
+        } else {
+            //print("OK", vsStatus)
+            let emptyStatus = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
+                && !sciText.isEmpty && !socText.isEmpty && !enListenText.isEmpty)
+            
+            btnStatus = emptyStatus
+            checkStatus(isEnabled: (emptyStatus))
+            
+            return true
+        }
+    }
+    
+    // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GsatViewController.dismissKeyboard))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    // 當按下右下角的return鍵時觸發
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -250,39 +340,70 @@ extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         // 將 UITextField 的值更新為陣列 engListenScore 的第 row 項資料
         enListenTextField.text = UserDataSources.shared.engListenScore[row]
     }
-    
 }
 
-extension String {
-    //Converts String to Int
-    public func toInt() -> Int? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.intValue
-        } else {
-            return nil
-        }
+extension GsatViewController: ScoreDescDelegate {
+    
+    func didDescButton(desc: ResultParameters) {
+        let vc = ResultListViewController.makeInitateViewController(parameters: ResultParameters(chinese: desc.chinese, english: desc.english, math: desc.math, society: desc.society, science: desc.science, engListeningLevel: desc.engListeningLevel, salary: desc.salary))
+        self.navigationController?.pushViewController(vc, animated: true)
     }
+}
 
-    //Converts String to Double
-    public func toDouble() -> Double? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.doubleValue
-        } else {
-            return nil
-        }
+extension GsatViewController {
+    
+    private func checkStatus(isEnabled: Bool = false) {
+        let titleColor: UIColor = isEnabled ? .white : .greenColor
+        doneButton.isEnabled = isEnabled
+        doneButton.setTitleColor(titleColor, for: .normal)
+        doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
     }
-
-    /// EZSE: Converts String to Float
-    public func toFloat() -> Float? {
-        if let num = NumberFormatter().number(from: self) {
-            return num.floatValue
-        } else {
-            return nil
-        }
+    
+    private func presentAlert() {
+        let alertCV = UIAlertController(title: "你輸入的值有錯誤！", message: "分數為 1~15 級分", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+        
+        alertCV.addAction(action)
+        
+        present(alertCV, animated: true, completion: nil)
     }
-
-    //Converts String to Bool
-    public func toBool() -> Bool? {
-        return (self as NSString).boolValue
+    
+    private func handlePostData() {
+        guard let chineseText = chineseTextField.text, !chineseText.isEmpty else {
+            return
+        }
+        
+        guard let englishText = englishTextField.text, !englishText.isEmpty else {
+            return
+        }
+        
+        guard let mathText = mathematicsTextField.text, !mathText.isEmpty else { return
+        }
+        
+        guard let socialText = socialStudiesTextField.text, !socialText.isEmpty else {
+            return
+        }
+        
+        guard let scienceText = scienceTextField.text, !scienceText.isEmpty else {
+            return
+        }
+        
+        guard let salaryText = salaryTextField.text else {
+            return
+        }
+        
+        guard let enListenText = enListenTextField.text else {
+            return
+        }
+        
+        self.doneButtonDelegate?.didDescButton(desc: ResultParameters(
+            chinese: chineseText.toInt() ?? 1,
+            english: englishText.toInt() ?? 1,
+            math: mathText.toInt() ?? 1,
+            society: socialText.toInt() ?? 1,
+            science: scienceText.toInt() ?? 1,
+            engListeningLevel: enListenText,
+            salary: salaryText.toInt() ?? 0))
     }
 }
