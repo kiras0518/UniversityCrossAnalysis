@@ -34,6 +34,9 @@ class ResultListViewController: UICollectionViewController {
             guard let model = model else { return }
             self?.dataSource?.update(model)
             self?.dataSource?.reloadData()
+            if model.count == 0 {
+                self?.presentAlert()
+            }
         })
         
         viewModel?.fetch()
@@ -62,7 +65,6 @@ class ResultListViewController: UICollectionViewController {
     
 }
 
-
 // MARK: - ViewControllersFactory
 extension ResultListViewController: ViewControllersFactory {
     //遵從 protocol 的型別裡以 typealias 指定
@@ -79,6 +81,19 @@ extension ResultListViewController: ViewControllersFactory {
     
 }
 
+extension ResultListViewController {
+    
+    private func presentAlert() {
+        let alertCV = UIAlertController(title: "找尋不到資料！", message: "請重新輸入！", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+        
+        alertCV.addAction(action)
+     
+        present(alertCV, animated: true, completion: nil)
+    }
+}
+
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ResultListViewController: UICollectionViewDelegateFlowLayout {
     
@@ -87,30 +102,30 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.width
         
         let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-
+        
         let model = dataSource?.data[indexPath.row]
-
+        
         dummyCell.configCell(model: model!)
         
-//        if let model = dataSource?.data[indexPath.row] {
-//
-//            dummyCell.configCell(model: model)
-//
-//            dummyCell.layoutIfNeeded()
-//
-//            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-//            print(estimatedSize.height)
-//
-//            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
-//
-//        } else {
-//            print("LESE")
-//        }
-//        // Get cell size
-//        dummyCell.setNeedsLayout()
-//        dummyCell.layoutIfNeeded()
-////
-//        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        //        if let model = dataSource?.data[indexPath.row] {
+        //
+        //            dummyCell.configCell(model: model)
+        //
+        //            dummyCell.layoutIfNeeded()
+        //
+        //            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        //            print(estimatedSize.height)
+        //
+        //            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
+        //
+        //        } else {
+        //            print("LESE")
+        //        }
+        //        // Get cell size
+        //        dummyCell.setNeedsLayout()
+        //        dummyCell.layoutIfNeeded()
+        ////
+        //        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
         let size = dummyCell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         

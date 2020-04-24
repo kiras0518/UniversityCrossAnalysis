@@ -194,7 +194,7 @@ class GsatViewController: UIViewController {
         
         setupView()
         creatEn()
-        hideKeyboardWhenTappedAround()
+        //hideKeyboardWhenTappedAround()
         doneButtonDelegate = self
     } 
     
@@ -241,38 +241,28 @@ class GsatViewController: UIViewController {
 
 extension GsatViewController: UITextFieldDelegate {
     
-    //        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //
-    //    //        let mathText = mathematicsTextField.text ?? ""
-    //    //        let chinessText = chineseTextField.text ?? ""
-    //    //        let engText = englishTextField.text ?? ""
-    //    //        let sciText = scienceTextField.text ?? ""
-    //    //        let socText = socialStudiesTextField.text ?? ""
-    //    //        //let enListenText = enListenTextField.text ?? ""
-    //    //        let currentText = textField.text ?? ""
-    //    //
-    //    //        let mathVS = (mathText.toInt() ?? 1 > 0 && mathText.toInt() ?? 1 <= 15)
-    //    //        let chinessVS = (chinessText.toInt() ?? 1 > 0 && chinessText.toInt() ?? 1 <= 15)
-    //    //        let engVS = (engText.toInt() ?? 1 > 0 && engText.toInt() ?? 1 <= 15)
-    //    //        let sciVS = (sciText.toInt() ?? 1 > 0 && sciText.toInt() ?? 1 <= 15)
-    //    //        let socVS = (socText.toInt() ?? 1 > 0 && socText.toInt() ?? 1 <= 15)
-    //    //
-    //    //
-    //    //        if mathVS {
-    //    //            print("BBBB")
-    //    //            return true
-    //    //        } else {
-    //    //            print("AAAA")
-    //    //            return false
-    //    //        }
-    //
-    //
-    //    //        guard let stringRange = Range(range, in: currentText) else { return false }
-    //    //
-    //    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
-    //    //
-    //
-    //    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//        let mathText = mathematicsTextField.text ?? ""
+//        let chinessText = chineseTextField.text ?? ""
+//        let engText = englishTextField.text ?? ""
+//        let sciText = scienceTextField.text ?? ""
+//        let socText = socialStudiesTextField.text ?? ""
+//        let enListenText = enListenTextField.text ?? ""
+//        let currentText = textField.text ?? ""
+//        //
+//        //        let mathVS = (mathText.toInt() ?? 1 > 0 && mathText.toInt() ?? 1 <= 15)
+//        //        let chinessVS = (chinessText.toInt() ?? 1 > 0 && chinessText.toInt() ?? 1 <= 15)
+//        //        let engVS = (engText.toInt() ?? 1 > 0 && engText.toInt() ?? 1 <= 15)
+//        //        let sciVS = (sciText.toInt() ?? 1 > 0 && sciText.toInt() ?? 1 <= 15)
+//        //        let socVS = (socText.toInt() ?? 1 > 0 && socText.toInt() ?? 1 <= 15)
+//
+//        guard let stringRange1 = Range(range, in: mathText) else { return false }
+//
+//        let inputText1 = mathText.replacingCharacters(in: stringRange1, with: string)
+//
+//        return true
+//    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
@@ -291,6 +281,7 @@ extension GsatViewController: UITextFieldDelegate {
         let vsStatus = (mathVS || chinessVS || engVS || sciVS || socVS)
         if vsStatus {
             //print("不能", vsStatus)
+            //presentAlert()
             return false
         } else {
             //print("OK", vsStatus)
@@ -304,21 +295,21 @@ extension GsatViewController: UITextFieldDelegate {
         }
     }
     
-    // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GsatViewController.dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        self.view.endEditing(true)
-    }
-    
-    // 當按下右下角的return鍵時觸發
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+//    // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GsatViewController.dismissKeyboard))
+//        self.view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard() {
+//        self.view.endEditing(true)
+//    }
+//
+//    // 當按下右下角的return鍵時觸發
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
 }
 
 extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
