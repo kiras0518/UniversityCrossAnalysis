@@ -15,20 +15,6 @@ class Service {
     
     private let session: Session = Session()
     
-    let engListenScoreKey = "EngListeningLevel"
-    let chineseKey = "Chinese"
-    let englishKey = "English"
-    let mathKey = "Math"
-    let societyKey = "Society"
-    let scienceKey = "Science"
-    
-    let gradesKey = "grades"
-    let gsatKey = "gsat"
-    let propertySchoolKey = "property"
-    let locationKey = "location"
-    let groupsKey = "groups"
-    let salaryKey = "expect_salary"
-    
     func request<T: Codable>(_ request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
         do {
             let request = try request.asURLRequest()

@@ -167,7 +167,7 @@ class LodingAnima: UIView {
     }()
     
     lazy var activity: UIActivityIndicatorView = {
-
+        
         let aiv = UIActivityIndicatorView(style: .gray)
         aiv.color = .darkBColor
         aiv.startAnimating()
@@ -221,4 +221,44 @@ public class CustomButton: UIButton {
     @objc func handleAction() {
         actionObserver?()
     }
+}
+
+class Spinner {
+    
+    static var spinner: UIActivityIndicatorView?
+    static var style: UIActivityIndicatorView.Style = .whiteLarge
+    static var baseBackColor = UIColor(white: 0, alpha: 0.6)
+    static var baseColor = UIColor(red: 0, green: 0.48, blue: 1.0, alpha: 1.0)
+    
+    static func start(style: UIActivityIndicatorView.Style = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
+        
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        
+        if spinner == nil {
+            let frame = UIScreen.main.bounds
+            spinner = UIActivityIndicatorView(frame: frame)
+            spinner?.backgroundColor = backColor
+            spinner?.style = style
+            spinner?.color = baseColor
+            window?.addSubview(spinner!)
+            spinner?.layer.backgroundColor = UIColor.graylightColor.cgColor
+            spinner?.startAnimating()
+        }
+    }
+    
+    static func stop() {
+        if spinner != nil {
+            spinner?.stopAnimating()
+            spinner?.removeFromSuperview()
+            spinner = nil
+        }
+    }
+    
+    static func update() {
+        if spinner != nil {
+            stop()
+            start()
+        }
+    }
+    
 }

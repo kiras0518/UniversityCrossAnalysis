@@ -3,20 +3,24 @@ PODS:
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
+  - SwiftyStoreKit (0.15.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
   - Charts
+  - SwiftyStoreKit
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Charts
+    - SwiftyStoreKit
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
 
-PODFILE CHECKSUM: e579401346e2efeaca91d5ebb9e4e56e759692a1
+PODFILE CHECKSUM: b643091b77909f4cc151658b59d69d03d73b915e
 
 COCOAPODS: 1.8.4

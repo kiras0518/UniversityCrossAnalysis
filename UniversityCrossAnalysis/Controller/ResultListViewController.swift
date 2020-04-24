@@ -15,6 +15,11 @@ protocol ViewControllersFactory {
     static func makeInitateViewController(parameters: Parameters) -> ViewController
 }
 
+//protocol AlertControllersFactory {
+//
+//    static func makeAlertController(title: String, message: String) -> UIAlertController
+//}
+
 class ResultListViewController: UICollectionViewController {
     
     private var dataSource: ResultListDataSource?
@@ -78,6 +83,20 @@ extension ResultListViewController: ViewControllersFactory {
     }
     
 }
+
+//extension ResultListViewController: AlertControllersFactory {
+//
+//    static func makeAlertController(title: String, message: String) -> UIAlertController {
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(.init(title: "OK", style: .default, handler: { (action) in
+//            //dismiss(animated: true, completion: nil)
+//
+//        }))
+//
+//        return alert
+//    }
+//
+//}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ResultListViewController: UICollectionViewDelegateFlowLayout {

@@ -10,9 +10,19 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-    
-//    convenience init(deletionHandler: @escaping() -> ()) {
-//        self.init
+
+//    static func confirmation(onConfirm: @escaping () -> Void) -> UIAlertController {
+//        let ok = UIAlertAction(title: "OK", style: .default) { _ in onConfirm() }
+//        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+//
+//        let alert = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .alert)
+//
+//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//
+//        alert.addAction(ok)
+//        alert.addAction(cancel)
+//
+//        return alert
 //    }
 }
 
