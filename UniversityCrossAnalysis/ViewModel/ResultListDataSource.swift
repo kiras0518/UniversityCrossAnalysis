@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import ViewAnimator
 
 class ResultListDataSource: NSObject {
     
     var data: [ResultSchool] = []
     private weak var collectionView: UICollectionView?
     private weak var layout: UICollectionViewFlowLayout?
+    private let animations = AnimationType.from(direction: .bottom, offset: 30.0)
     
     func inject(_ collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -23,9 +25,12 @@ class ResultListDataSource: NSObject {
     func update(_ models: [ResultSchool]) {
         self.data += models
     }
-    
+   
     func reloadData() {
         collectionView?.reloadData()
+        collectionView?.performBatchUpdates({
+            UIView.animate(views: collectionView!.orderedVisibleCells, animations: [(self.animations)], duration: 0.5)
+        }, completion: nil)
     }
 }
 
