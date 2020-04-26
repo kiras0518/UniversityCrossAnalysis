@@ -19,9 +19,8 @@ class AboutViewController: UIViewController {
         tableView.fillSuperview()
         tableView.backgroundColor = .lightDarkPink
         tableView.tableFooterView = UIView()
-        
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.identifier)
-        
+  
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -29,7 +28,7 @@ class AboutViewController: UIViewController {
     var info = [
         ["贊助一杯飲料🍺"],
         ["問題回饋⚠️", "給個評價👨‍💻"],
-        ["1.0.0", "網站"]
+        ["1.0.0"]
     ]
     
     override func viewDidLoad() {
@@ -54,11 +53,15 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let itemSection = indexPath.section
         let itemRow = indexPath.row
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.contentView.backgroundColor = .white
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         
         if itemSection == 0 {
             switch itemRow {
@@ -71,9 +74,9 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         } else if itemSection == 1 {
             switch itemRow {
             case 0:
-                print("B")
+                webApp()
             case 1:
-                print("C")
+                rateApp(id: "1506874859")
             default:
                 return
             }
@@ -81,8 +84,6 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             switch itemRow {
             case 0:
                 print("D")
-            case 1:
-                print("E")
             default:
                 return
             }
@@ -114,6 +115,24 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension AboutViewController {
+    
+    func rateApp(id : String) {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+    
+    func webApp() {
+        guard let url = URL(string : "http://predict.chu.edu.tw/2020/index.html") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
     
     func alertWithTitle(_ title: String, message: String) -> UIAlertController {
         
