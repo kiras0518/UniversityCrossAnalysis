@@ -20,7 +20,7 @@ class ResultViewModel {
     private var parameters: ResultParameters
     private let service: Service
     private var completion: (([ResultSchool]?) -> Void)?
-    //var onErrorHandling: ((UIAlertController) -> Void)?
+    var onErrorHandling: ((UIAlertController) -> Void)?
     
     private var model: [ResultSchool]? {
         didSet {
@@ -49,21 +49,24 @@ class ResultViewModel {
             switch result {
             case .success(let model):
                 self?.model = model.result
+                if self?.model?.count == 0 {
+                    self?.onErrorHandling!(self!.noDataAlert())
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
     }
     
-//    func noDataAlert() -> UIAlertController {
-//        let alertVC = UIAlertController(title: "找尋不到資料！", message: "請重新輸入！", preferredStyle: .alert)
-//        
-//        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
-//        
-//        alertVC.addAction(action)
-//        
-//        return alertVC
-//    }
+    func noDataAlert() -> UIAlertController {
+        let alertVC = UIAlertController(title: "找尋不到資料！", message: "請重新輸入！", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+        
+        alertVC.addAction(action)
+        
+        return alertVC
+    }
     
 }
 

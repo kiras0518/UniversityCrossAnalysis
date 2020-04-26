@@ -19,7 +19,7 @@ class ResultListViewController: UICollectionViewController {
     
     private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
@@ -35,16 +35,12 @@ class ResultListViewController: UICollectionViewController {
             self?.dataSource?.update(model)
             self?.dataSource?.reloadData()
         })
+ 
+        viewModel?.fetch()
         
-        viewModel?.fetch(completion: { (res) in
-            if res.result?.count == 0 {
-                self.presentAlert()
-            }
-        })
-        
-//        viewModel?.onErrorHandling = { [weak self] alert in
-//            self?.present(alert, animated: true, completion: nil)
-//        }
+        viewModel?.onErrorHandling = { [weak self] alert in
+            self?.present(alert, animated: true, completion: nil)
+        }
     }
     
     init() {
@@ -83,19 +79,6 @@ extension ResultListViewController: ViewControllersFactory {
         return vc
     }
     
-}
-
-extension ResultListViewController {
-    
-    private func presentAlert() {
-        let alertCV = UIAlertController(title: "找尋不到資料！", message: "請重新輸入！", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
-        
-        alertCV.addAction(action)
-     
-        present(alertCV, animated: true, completion: nil)
-    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
