@@ -362,10 +362,11 @@ extension GsatViewController {
         doneButton.isEnabled = isEnabled
         doneButton.setTitleColor(titleColor, for: .normal)
         doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
+        presentAlert()
     }
 
     private func presentAlert() {
-        let alertCV = UIAlertController(title: "你輸入的值有錯誤！", message: "分數為 1~15 級分", preferredStyle: .alert)
+        let alertCV = UIAlertController(title: "分數不能為空白！", message: "請輸入分數為 1~15 級分", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "確定", style: .default, handler: nil)
         
