@@ -194,7 +194,7 @@ class GsatViewController: UIViewController {
         
         setupView()
         creatEn()
-        hideKeyboardWhenTappedAround()
+        //hideKeyboardWhenTappedAround()
         doneButtonDelegate = self
     } 
     
@@ -241,41 +241,47 @@ class GsatViewController: UIViewController {
 
 extension GsatViewController: UITextFieldDelegate {
     
-    //        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    //
-    //    //        let mathText = mathematicsTextField.text ?? ""
-    //    //        let chinessText = chineseTextField.text ?? ""
-    //    //        let engText = englishTextField.text ?? ""
-    //    //        let sciText = scienceTextField.text ?? ""
-    //    //        let socText = socialStudiesTextField.text ?? ""
-    //    //        //let enListenText = enListenTextField.text ?? ""
-    //    //        let currentText = textField.text ?? ""
-    //    //
-    //    //        let mathVS = (mathText.toInt() ?? 1 > 0 && mathText.toInt() ?? 1 <= 15)
-    //    //        let chinessVS = (chinessText.toInt() ?? 1 > 0 && chinessText.toInt() ?? 1 <= 15)
-    //    //        let engVS = (engText.toInt() ?? 1 > 0 && engText.toInt() ?? 1 <= 15)
-    //    //        let sciVS = (sciText.toInt() ?? 1 > 0 && sciText.toInt() ?? 1 <= 15)
-    //    //        let socVS = (socText.toInt() ?? 1 > 0 && socText.toInt() ?? 1 <= 15)
-    //    //
-    //    //
-    //    //        if mathVS {
-    //    //            print("BBBB")
-    //    //            return true
-    //    //        } else {
-    //    //            print("AAAA")
-    //    //            return false
-    //    //        }
-    //
-    //
-    //    //        guard let stringRange = Range(range, in: currentText) else { return false }
-    //    //
-    //    //        let inputText = currentText.replacingCharacters(in: stringRange, with: string)
-    //    //
-    //
-    //    }
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+//        guard let stringRange1 = Range(range, in: mathText) else { return false }
+//
+//        let inputText1 = mathText.replacingCharacters(in: stringRange1, with: string)
+//
+//        return true
+//    }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//
+//        let mathText = mathematicsTextField.text ?? ""
+//        let chinessText = chineseTextField.text ?? ""
+//        let engText = englishTextField.text ?? ""
+//        let sciText = scienceTextField.text ?? ""
+//        let socText = socialStudiesTextField.text ?? ""
+//        let enListenText = enListenTextField.text ?? ""
+//
+//        let mathVS = (mathText.toInt() ?? 1 > 15 || mathText.toInt() ?? 1 < 1)
+//        let chinessVS = (chinessText.toInt() ?? 1 > 15 || chinessText.toInt() ?? 1 < 1)
+//        let engVS = (engText.toInt() ?? 1 > 15 || engText.toInt() ?? 1 < 1)
+//        let sciVS = (sciText.toInt() ?? 1 > 15 || sciText.toInt() ?? 1 < 1)
+//        let socVS = (socText.toInt() ?? 1 > 15 || socText.toInt() ?? 1 < 1)
+//        let vsStatus = (mathVS || chinessVS || engVS || sciVS || socVS)
+//        if vsStatus {
+//            //print("不能", vsStatus)
+//            return false
+//        } else {
+//            //print("OK", vsStatus)
+//            let emptyStatus = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
+//                && !sciText.isEmpty && !socText.isEmpty && !enListenText.isEmpty)
+//
+//            btnStatus = emptyStatus
+//            checkStatus(isEnabled: (emptyStatus))
+//
+//            return true
+//        }
+//    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("結束編輯")
         let mathText = mathematicsTextField.text ?? ""
         let chinessText = chineseTextField.text ?? ""
         let engText = englishTextField.text ?? ""
@@ -289,36 +295,35 @@ extension GsatViewController: UITextFieldDelegate {
         let sciVS = (sciText.toInt() ?? 1 > 15 || sciText.toInt() ?? 1 < 1)
         let socVS = (socText.toInt() ?? 1 > 15 || socText.toInt() ?? 1 < 1)
         let vsStatus = (mathVS || chinessVS || engVS || sciVS || socVS)
+        
         if vsStatus {
-            //print("不能", vsStatus)
-            return false
+            presentAlert()
+            
         } else {
-            //print("OK", vsStatus)
+            
             let emptyStatus = (!mathText.isEmpty && !chinessText.isEmpty && !engText.isEmpty
                 && !sciText.isEmpty && !socText.isEmpty && !enListenText.isEmpty)
             
             btnStatus = emptyStatus
             checkStatus(isEnabled: (emptyStatus))
-            
-            return true
         }
     }
     
-    // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GsatViewController.dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        self.view.endEditing(true)
-    }
-    
-    // 當按下右下角的return鍵時觸發
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
+//    // 註冊tab事件，點選瑩幕任一處可關閉瑩幕小鍵盤
+//    func hideKeyboardWhenTappedAround() {
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GsatViewController.dismissKeyboard))
+//        self.view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard() {
+//        self.view.endEditing(true)
+//    }
+//
+//    // 當按下右下角的return鍵時觸發
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
 }
 
 extension GsatViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -357,10 +362,11 @@ extension GsatViewController {
         doneButton.isEnabled = isEnabled
         doneButton.setTitleColor(titleColor, for: .normal)
         doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
+        presentAlert()
     }
-    
+
     private func presentAlert() {
-        let alertCV = UIAlertController(title: "你輸入的值有錯誤！", message: "分數為 1~15 級分", preferredStyle: .alert)
+        let alertCV = UIAlertController(title: "分數不能為空白！", message: "請輸入分數為 1~15 級分", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "確定", style: .default, handler: nil)
         

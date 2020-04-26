@@ -10,19 +10,15 @@ import Foundation
 import UIKit
 
 extension UIAlertController {
-
-//    static func confirmation(onConfirm: @escaping () -> Void) -> UIAlertController {
-//        let ok = UIAlertAction(title: "OK", style: .default) { _ in onConfirm() }
-//        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
-//
-//        let alert = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .alert)
-//
+    
+//    static func setAlert(title: String?, message: String?, handler: @escaping () -> ()) -> UIAlertController {
+//        
 //        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//        alert.addAction(ok)
-//        alert.addAction(cancel)
-//
-//        return alert
+//        
+//        let action = UIAlertAction(title: "確定", style: .default, handler: nil)
+//        alertController.addAction(action)
+//        
+//        return alertController
 //    }
 }
 
@@ -35,7 +31,7 @@ extension String {
             return nil
         }
     }
-
+    
     // Converts String to Double
     public func toDouble() -> Double? {
         if let num = NumberFormatter().number(from: self) {
@@ -44,7 +40,7 @@ extension String {
             return nil
         }
     }
-
+    
     // Converts String to Float
     public func toFloat() -> Float? {
         if let num = NumberFormatter().number(from: self) {
@@ -53,7 +49,7 @@ extension String {
             return nil
         }
     }
-
+    
     // Converts String to Bool
     public func toBool() -> Bool? {
         return (self as NSString).boolValue
@@ -101,11 +97,11 @@ protocol Parameterable {
 //}
 
 extension Parameterable where Self: Codable {
-  func getParameters() -> [String: Any]? {
-    guard let data = try? JSONEncoder().encode(self) else { return nil }
-    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
-      .flatMap { $0 as? [String: Any] }
-  }
+    func getParameters() -> [String: Any]? {
+        guard let data = try? JSONEncoder().encode(self) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments))
+            .flatMap { $0 as? [String: Any] }
+    }
 }
 
 protocol ScoreDescDelegate: class {

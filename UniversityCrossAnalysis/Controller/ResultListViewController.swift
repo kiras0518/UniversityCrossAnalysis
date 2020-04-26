@@ -24,7 +24,7 @@ class ResultListViewController: UICollectionViewController {
     
     private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
@@ -40,9 +40,12 @@ class ResultListViewController: UICollectionViewController {
             self?.dataSource?.update(model)
             self?.dataSource?.reloadData()
         })
-        
+ 
         viewModel?.fetch()
         
+        viewModel?.onErrorHandling = { [weak self] alert in
+            self?.present(alert, animated: true, completion: nil)
+        }
     }
     
     init() {
@@ -66,7 +69,6 @@ class ResultListViewController: UICollectionViewController {
     }
     
 }
-
 
 // MARK: - ViewControllersFactory
 extension ResultListViewController: ViewControllersFactory {
@@ -106,30 +108,30 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         let width = view.frame.width
         
         let dummyCell = ResultListCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-
+        
         let model = dataSource?.data[indexPath.row]
-
+        
         dummyCell.configCell(model: model!)
         
-//        if let model = dataSource?.data[indexPath.row] {
-//
-//            dummyCell.configCell(model: model)
-//
-//            dummyCell.layoutIfNeeded()
-//
-//            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-//            print(estimatedSize.height)
-//
-//            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
-//
-//        } else {
-//            print("LESE")
-//        }
-//        // Get cell size
-//        dummyCell.setNeedsLayout()
-//        dummyCell.layoutIfNeeded()
-////
-//        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        //        if let model = dataSource?.data[indexPath.row] {
+        //
+        //            dummyCell.configCell(model: model)
+        //
+        //            dummyCell.layoutIfNeeded()
+        //
+        //            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        //            print(estimatedSize.height)
+        //
+        //            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
+        //
+        //        } else {
+        //            print("LESE")
+        //        }
+        //        // Get cell size
+        //        dummyCell.setNeedsLayout()
+        //        dummyCell.layoutIfNeeded()
+        ////
+        //        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
         let size = dummyCell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         
