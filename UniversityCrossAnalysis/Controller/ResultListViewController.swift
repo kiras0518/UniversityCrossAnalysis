@@ -34,13 +34,17 @@ class ResultListViewController: UICollectionViewController {
             guard let model = model else { return }
             self?.dataSource?.update(model)
             self?.dataSource?.reloadData()
-            if model.count == 0 {
-                self?.presentAlert()
+        })
+        
+        viewModel?.fetch(completion: { (res) in
+            if res.result?.count == 0 {
+                self.presentAlert()
             }
         })
         
-        viewModel?.fetch()
-        
+//        viewModel?.onErrorHandling = { [weak self] alert in
+//            self?.present(alert, animated: true, completion: nil)
+//        }
     }
     
     init() {
