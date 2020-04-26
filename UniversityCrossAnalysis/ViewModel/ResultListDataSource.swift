@@ -22,7 +22,6 @@ class ResultListDataSource: NSObject {
     // TODO: we need to consider dataStructure of this model(data)
     func update(_ models: [ResultSchool]) {
         self.data += models
-        
     }
     
     func reloadData() {

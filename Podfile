@@ -7,8 +7,9 @@ target 'UniversityCrossAnalysis' do
 
   # Pods for UniversityCrossAnalysis
   	pod 'Alamofire', '~> 5.0'
-        pod 'Charts'
-
+    pod 'Charts'
+    pod 'IQKeyboardManagerSwift'
+    
   target 'UniversityCrossAnalysisTests' do
     inherit! :search_paths
     # Pods for testing
