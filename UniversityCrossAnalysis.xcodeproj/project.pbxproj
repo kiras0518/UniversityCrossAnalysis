@@ -24,6 +24,7 @@
 		6EBBF4B424459A3700C14D89 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBBF4B324459A3700C14D89 /* Prediction.swift */; };
 		6ED089D9244EDD7E003D3ED4 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED089D8244EDD7E003D3ED4 /* AboutViewController.swift */; };
 		6ED089DB244EE131003D3ED4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6ED089DA244EE131003D3ED4 /* StoreKit.framework */; };
+		6ED28A41245933750085C4E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6ED28A43245933750085C4E4 /* InfoPlist.strings */; };
 		6EEE45ED2451EC4F00296A26 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EEE45EC2451EC4F00296A26 /* InfoCell.swift */; };
 		6EF2120E2428A0AD006E258C /* ResultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF2120D2428A0AD006E258C /* ResultListViewController.swift */; };
 		6EF212102428A0E3006E258C /* GenericDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF2120F2428A0E3006E258C /* GenericDataSource.swift */; };
@@ -84,7 +85,8 @@
 		6EBBF4B324459A3700C14D89 /* Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
 		6ED089D8244EDD7E003D3ED4 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		6ED089DA244EE131003D3ED4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		6ED28A34245929C50085C4E4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		6ED28A44245933830085C4E4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		6ED28A452459338E0085C4E4 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6EEE45EC2451EC4F00296A26 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		6EF2120D2428A0AD006E258C /* ResultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListViewController.swift; sourceTree = "<group>"; };
 		6EF2120F2428A0E3006E258C /* GenericDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericDataSource.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				6EFC887A24226BE500654CF4 /* AppDelegate.swift */,
 				6EFC887C24226BE500654CF4 /* SceneDelegate.swift */,
 				6EFC887E24226BE500654CF4 /* ViewController.swift */,
+				6ED28A43245933750085C4E4 /* InfoPlist.strings */,
 				6E244C69242284F300A2888B /* MainTabBarController.swift */,
 				6EFC88AA24226CA300654CF4 /* Controller */,
 				6EFC88AD24226CC700654CF4 /* ViewModel */,
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFC888724226BE500654CF4 /* LaunchScreen.storyboard in Resources */,
+				6ED28A41245933750085C4E4 /* InfoPlist.strings in Resources */,
 				6EFC888424226BE500654CF4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,11 +607,19 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6ED28A43245933750085C4E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6ED28A452459338E0085C4E4 /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		6EFC888524226BE500654CF4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6EFC888624226BE500654CF4 /* Base */,
-				6ED28A34245929C50085C4E4 /* zh-Hant */,
+				6ED28A44245933830085C4E4 /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
