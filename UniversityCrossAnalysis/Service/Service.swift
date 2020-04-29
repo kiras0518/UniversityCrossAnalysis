@@ -9,25 +9,11 @@
 import Foundation
 import Alamofire
 
-class Service {
+class RequestService {
     
-    static let shared = Service()
+    static let shared = RequestService()
     
     private let session: Session = Session()
-    
-    let engListenScoreKey = "EngListeningLevel"
-    let chineseKey = "Chinese"
-    let englishKey = "English"
-    let mathKey = "Math"
-    let societyKey = "Society"
-    let scienceKey = "Science"
-    
-    let gradesKey = "grades"
-    let gsatKey = "gsat"
-    let propertySchoolKey = "property"
-    let locationKey = "location"
-    let groupsKey = "groups"
-    let salaryKey = "expect_salary"
     
     func request<T: Codable>(_ request: APIEndPoint, _ model: T.Type, completion: @escaping ((Swift.Result<T, Error>) -> Void)) {
         do {
@@ -168,6 +154,29 @@ class Service {
                 case .failure(let error):
                     print("requestError", error)
                 }
+        }
+    }
+}
+
+class AboutService {
+    
+    static let shared = AboutService()
+    
+    func rateApp(id : String) {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+
+    func webApp() {
+        guard let url = URL(string : "http://predict.chu.edu.tw/2020/index.html") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
         }
     }
 }
