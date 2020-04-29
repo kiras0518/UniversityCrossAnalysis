@@ -44,7 +44,7 @@ class IPAService {
     
     /// 透過 AppStore 購買內購商品
     func executeInAppPurchase() {
-        Spinner.start()
+        //Spinner.start()
         SwiftyStoreKit.purchaseProduct(InAppProductsInfo.dessert.rawValue, quantity: 1, atomically: true) { (result) in
             switch result {
             case .success(let product):
@@ -56,7 +56,7 @@ class IPAService {
                 print("Purchase Success: \(product.productId)")
                 
                 //self.verifyPurchase(with: InAppProductsInfo.dessert.rawValue, sharedSecret: IPAService.shared.sharedSecretCode)
-                Spinner.stop()
+                //Spinner.stop()
                 
             case .error(let error):
                 switch error.code {
@@ -81,7 +81,7 @@ class IPAService {
                 default:
                     print((error as NSError).localizedDescription)
                 }
-                Spinner.stop()
+                //Spinner.stop()
             }
         }
     }
