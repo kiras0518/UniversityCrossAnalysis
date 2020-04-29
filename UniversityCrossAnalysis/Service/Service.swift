@@ -179,6 +179,15 @@ class AboutService {
             UIApplication.shared.openURL(url)
         }
     }
+    
+    func authorWeb() {
+        guard let url = URL(string : "https://tor-f.idv.tw/blog") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
 }
 
 class UserDataSources {

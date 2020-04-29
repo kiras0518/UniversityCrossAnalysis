@@ -29,7 +29,7 @@ class AboutViewController: UIViewController {
     var info = [
         ["贊助一杯飲料🍺"],
         ["問題回饋⚠️", "給個評價👨‍💻"],
-        ["1.0.0"]
+        ["1.0.6", "作者網站"]
     ]
     
     override func viewDidLoad() {
@@ -90,6 +90,8 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
             switch itemRow {
             case 0:
                 print("D")
+            case 1:
+                AboutService.shared.authorWeb()
             default:
                 return
             }
