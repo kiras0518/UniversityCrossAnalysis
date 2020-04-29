@@ -9,9 +9,9 @@
 import Foundation
 import Alamofire
 
-class Service {
+class RequestService {
     
-    static let shared = Service()
+    static let shared = RequestService()
     
     private let session: Session = Session()
     
@@ -154,6 +154,29 @@ class Service {
                 case .failure(let error):
                     print("requestError", error)
                 }
+        }
+    }
+}
+
+class AboutService {
+    
+    static let shared = AboutService()
+    
+    func rateApp(id : String) {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+    }
+
+    func webApp() {
+        guard let url = URL(string : "http://predict.chu.edu.tw/2020/index.html") else { return }
+        if #available(iOS 11.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
         }
     }
 }

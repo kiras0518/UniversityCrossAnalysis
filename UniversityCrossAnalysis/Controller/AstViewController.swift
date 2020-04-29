@@ -161,7 +161,7 @@ extension AstViewController: ChartViewDelegate {
 extension AstViewController: GetChartData {
     
     func callSchool() {
-        Service.shared.fetchPredictionData { (res, err) in
+        RequestService.shared.fetchPredictionData { (res, err) in
             // 一般分類-學校
             guard let school = res?.category?.school else { return }
             
@@ -176,7 +176,7 @@ extension AstViewController: GetChartData {
     }
     
     func callGroups() {
-        Service.shared.fetchPredictionData { (res, err) in
+        RequestService.shared.fetchPredictionData { (res, err) in
             // 一般分類-學群
             guard let gropus = res?.category?.groups else { return }
             
@@ -191,7 +191,7 @@ extension AstViewController: GetChartData {
     }
     
     func callDepartment() {
-        Service.shared.fetchPredictionData { (res, err) in
+        RequestService.shared.fetchPredictionData { (res, err) in
             // 一般分類-科系
             guard let department = res?.category?.department else { return }
             

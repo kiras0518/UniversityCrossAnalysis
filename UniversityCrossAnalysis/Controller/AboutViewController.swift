@@ -13,6 +13,7 @@ import SwiftyStoreKit
 class AboutViewController: UIViewController {
     
     let tableView = UITableView()
+    //private var dataSource: AboutListDataSource?
     
     func steupTableView() {
         view.addSubview(tableView)
@@ -20,7 +21,7 @@ class AboutViewController: UIViewController {
         tableView.backgroundColor = .lightDarkPink
         tableView.tableFooterView = UIView()
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.identifier)
-  
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -35,7 +36,12 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         
         IPAService.shared.purchaseProduct()
+        
         steupTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 }
 
@@ -53,7 +59,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let itemSection = indexPath.section
@@ -74,9 +80,9 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         } else if itemSection == 1 {
             switch itemRow {
             case 0:
-                webApp()
+                AboutService.shared.webApp()
             case 1:
-                rateApp(id: "1506874859")
+                AboutService.shared.rateApp(id: "1506874859")
             default:
                 return
             }
@@ -116,21 +122,10 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension AboutViewController {
     
-    func rateApp(id : String) {
-        guard let url = URL(string : "itms-apps://itunes.apple.com/app/id\(id)?mt=8&action=write-review") else { return }
-        if #available(iOS 11.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
-    }
-    
-    func webApp() {
-        guard let url = URL(string : "http://predict.chu.edu.tw/2020/index.html") else { return }
-        if #available(iOS 11.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
+    func showAlert(_ alert: UIAlertController) {
+        guard self.presentedViewController != nil else {
+            self.present(alert, animated: true, completion: nil)
+            return
         }
     }
     
@@ -140,24 +135,36 @@ extension AboutViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alert
     }
-    
-    func showAlert(_ alert: UIAlertController) {
-        guard self.presentedViewController != nil else {
-            self.present(alert, animated: true, completion: nil)
-            return
+
+    func alertForPurchaseResult(_ result: PurchaseResult) -> UIAlertController? {
+        switch result {
+        case .success(let purchase):
+            print("Purchase Success: \(purchase.productId)")
+            return nil
+        case .error(let error):
+            print("Purchase Failed: \(error)")
+            switch error.code {
+            case .unknown: return alertWithTitle("Purchase failed", message: error.localizedDescription)
+            case .clientInvalid: // client is not allowed to issue the request, etc.
+                return alertWithTitle("Purchase failed", message: "Not allowed to make the payment")
+            case .paymentCancelled: // user cancelled the request, etc.
+                return nil
+            case .paymentInvalid: // purchase identifier was invalid, etc.
+                return alertWithTitle("Purchase failed", message: "The purchase identifier was invalid")
+            case .paymentNotAllowed: // this device is not allowed to make the payment
+                return alertWithTitle("Purchase failed", message: "The device is not allowed to make the payment")
+            case .storeProductNotAvailable: // Product is not available in the current storefront
+                return alertWithTitle("Purchase failed", message: "The product is not available in the current storefront")
+            case .cloudServicePermissionDenied: // user has not allowed access to cloud service information
+                return alertWithTitle("Purchase failed", message: "Access to cloud service information is not allowed")
+            case .cloudServiceNetworkConnectionFailed: // the device could not connect to the nework
+                return alertWithTitle("Purchase failed", message: "Could not connect to the network")
+            case .cloudServiceRevoked: // user has revoked permission to use this cloud service
+                return alertWithTitle("Purchase failed", message: "Cloud service was revoked")
+            default:
+                return alertWithTitle("Purchase failed", message: (error as NSError).localizedDescription)
+            }
         }
     }
     
-    func alertForProductRetrievalInfo(_ result: RetrieveResults) -> UIAlertController {
-        
-        if let product = result.retrievedProducts.first {
-            let priceString = product.localizedPrice!
-            return alertWithTitle(product.localizedTitle, message: "\(product.localizedDescription) - \(priceString)")
-        } else if let invalidProductId = result.invalidProductIDs.first {
-            return alertWithTitle("Could not retrieve product info", message: "Invalid product identifier: \(invalidProductId)")
-        } else {
-            let errorString = result.error?.localizedDescription ?? "Unknown error. Please contact support"
-            return alertWithTitle("Could not retrieve product info", message: errorString)
-        }
-    }
 }

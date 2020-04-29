@@ -227,8 +227,8 @@ class Spinner {
     
     static var spinner: UIActivityIndicatorView?
     static var style: UIActivityIndicatorView.Style = .whiteLarge
-    static var baseBackColor = UIColor(white: 0, alpha: 0.6)
-    static var baseColor = UIColor(red: 0, green: 0.48, blue: 1.0, alpha: 1.0)
+    static var baseBackColor = UIColor.redPinkColor
+    static var baseColor = UIColor.waterBlueColor // 轉圈顏色
     
     static func start(style: UIActivityIndicatorView.Style = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
         
@@ -236,12 +236,16 @@ class Spinner {
         
         if spinner == nil {
             let frame = UIScreen.main.bounds
+            print(ScreenConfigs.widthScreenScaleFactor, ScreenConfigs.heightScreenScaleFactor)
             spinner = UIActivityIndicatorView(frame: frame)
             spinner?.backgroundColor = backColor
             spinner?.style = style
             spinner?.color = baseColor
             window?.addSubview(spinner!)
-            spinner?.layer.backgroundColor = UIColor.graylightColor.cgColor
+            spinner?.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: ScreenConfigs.widthScreenScaleFactor * 200, height: ScreenConfigs.widthScreenScaleFactor * 200))
+            spinner?.centerInSuperview()
+            spinner?.layer.backgroundColor = UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 0.4).cgColor
+            spinner?.layer.cornerRadius = 16
             spinner?.startAnimating()
         }
     }
