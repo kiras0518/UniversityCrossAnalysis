@@ -18,7 +18,7 @@ protocol ViewModelable {
 class ResultViewModel {
     
     private var parameters: ResultParameters
-    private let service: Service
+    private let service: RequestService
     private var completion: (([ResultSchool]?) -> Void)?
     var onErrorHandling: ((UIAlertController) -> Void)?
     
@@ -28,7 +28,7 @@ class ResultViewModel {
         }
     }
     
-    init(parameters: ResultParameters, service: Service = Service.shared) {
+    init(parameters: ResultParameters, service: RequestService = RequestService.shared) {
         self.parameters = parameters
         self.service = service
     }

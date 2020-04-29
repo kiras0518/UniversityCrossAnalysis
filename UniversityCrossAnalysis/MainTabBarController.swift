@@ -13,7 +13,8 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         delegate = self
         viewControllers = [templateNavController(viewController: GsatViewController(), title: "學測分析", image: "analytics"),
-                           templateNavController(viewController: AstViewController(), title: "校系分析", image: "graphic")]
+                           templateNavController(viewController: AstViewController(), title: "校系分析", image: "graphic"),
+                           templateNavController(viewController: AboutViewController(), title: "關於", image: "information")]
     }
     
     func templateNavController(viewController: UIViewController, title: String, image: String) -> UIViewController {

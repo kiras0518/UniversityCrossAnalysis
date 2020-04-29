@@ -4,12 +4,14 @@ PODS:
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
   - IQKeyboardManagerSwift (6.5.5)
+  - SwiftyStoreKit (0.15.0)
   - ViewAnimator (2.7.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
   - Charts
   - IQKeyboardManagerSwift
+  - SwiftyStoreKit
   - ViewAnimator
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - Alamofire
     - Charts
     - IQKeyboardManagerSwift
+    - SwiftyStoreKit
     - ViewAnimator
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
+  SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   ViewAnimator: 5af1c6f3b310f012bf081259c43717aa54fbae73
 
-PODFILE CHECKSUM: d4b419a1619470cf4a4314274f0ecbc5f0650e90
+PODFILE CHECKSUM: 2163b29b8d4f5a97dc2079e1b6fae9a4562dfe1e
 
 COCOAPODS: 1.8.4
