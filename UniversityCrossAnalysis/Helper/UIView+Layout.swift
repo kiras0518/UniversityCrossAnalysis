@@ -158,37 +158,6 @@ extension UIColor {
     }
 }
 
-class LodingAnima: UIView {
-    
-    lazy var textLabel: UILabel = {
-        let ib = UILabel()
-        ib.textAlignment = .center
-        return ib
-    }()
-    
-    lazy var activity: UIActivityIndicatorView = {
-        
-        let aiv = UIActivityIndicatorView(style: .gray)
-        aiv.color = .darkBColor
-        aiv.startAnimating()
-        return aiv
-        
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        let stackView = UIStackView(arrangedSubviews: [activity, textLabel])
-        stackView.spacing = 8
-        
-        stackView.centerInSuperview(size: .init(width: 200, height: 0))
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 public class CustomButton: UIButton {
     var actionObserver: CompletionHandler?
     
@@ -223,7 +192,7 @@ public class CustomButton: UIButton {
     }
 }
 
-class Spinner {
+public class Spinner {
     
     static var spinner: UIActivityIndicatorView?
     static var style: UIActivityIndicatorView.Style = .whiteLarge
@@ -236,13 +205,13 @@ class Spinner {
         
         if spinner == nil {
             let frame = UIScreen.main.bounds
-            print(ScreenConfigs.widthScreenScaleFactor, ScreenConfigs.heightScreenScaleFactor)
+            //print(ScreenConfigs.widthScreenScaleFactor, ScreenConfigs.heightScreenScaleFactor)
             spinner = UIActivityIndicatorView(frame: frame)
             spinner?.backgroundColor = backColor
             spinner?.style = style
             spinner?.color = baseColor
             window?.addSubview(spinner!)
-            spinner?.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: ScreenConfigs.widthScreenScaleFactor * 200, height: ScreenConfigs.widthScreenScaleFactor * 200))
+            spinner?.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: ScreenConfigs.widthScreenScaleFactor * 150, height: ScreenConfigs.widthScreenScaleFactor * 150))
             spinner?.centerInSuperview()
             spinner?.layer.backgroundColor = UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 0.4).cgColor
             spinner?.layer.cornerRadius = 16

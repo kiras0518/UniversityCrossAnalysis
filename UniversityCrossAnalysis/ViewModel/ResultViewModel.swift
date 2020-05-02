@@ -33,18 +33,19 @@ class ResultViewModel {
         self.service = service
     }
     
-    #warning("maybe delete")
-    func fetch(completion: @escaping (Base) -> Void) {
-        service.setupRequest(chinese: parameters.chinese, english: parameters.english, math: parameters.math, society: parameters.math, science: parameters.science, engListeningLevel: parameters.engListeningLevel, salary: parameters.salary) { (data, err) in
-            guard let data = data else { return  }
-            if let err = err {
-                print("ResultViewModel fetch Error", err)
-            }
-            completion(data)
-        }
-    }
+    //    #warning("maybe delete")
+    //    func fetch(completion: @escaping (Base) -> Void) {
+    //        service.setupRequest(chinese: parameters.chinese, english: parameters.english, math: parameters.math, society: parameters.math, science: parameters.science, engListeningLevel: parameters.engListeningLevel, salary: parameters.salary) { (data, err) in
+    //            guard let data = data else { return  }
+    //            if let err = err {
+    //                print("ResultViewModel fetch Error", err)
+    //            }
+    //            completion(data)
+    //        }
+    //    }
     
     func fetch() {
+        Spinner.start()
         service.request(.result(parameters), Base.self) { [weak self] (result) in
             switch result {
             case .success(let model):
@@ -52,6 +53,7 @@ class ResultViewModel {
                 if self?.model?.count == 0 {
                     self?.onErrorHandling!(self!.noDataAlert())
                 }
+                Spinner.stop()
             case .failure(let error):
                 print(error.localizedDescription)
             }

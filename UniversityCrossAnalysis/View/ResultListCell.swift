@@ -215,13 +215,13 @@ class ResultListCell: UICollectionViewCell {
 //        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         let fullStack = UIStackView(arrangedSubviews: [schoolCodeStack, schoolStack, deptStack, salaryStack, ratioStack, lastRatioStack])
-        fullStack.spacing = 10
+        fullStack.spacing = 20
         fullStack.axis = .vertical
         fullStack.alignment = .fill
-        fullStack.distribution = .fillEqually
+        fullStack.distribution = .fill
         
         viewBg.addSubview(fullStack)
-        fullStack.anchor(top: viewBg.topAnchor, leading: viewBg.leadingAnchor, bottom: viewBg.bottomAnchor, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 8, right: 8))
+        fullStack.anchor(top: viewBg.topAnchor, leading: viewBg.leadingAnchor, bottom: viewBg.bottomAnchor, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 18, right: 8))
         
     }
     

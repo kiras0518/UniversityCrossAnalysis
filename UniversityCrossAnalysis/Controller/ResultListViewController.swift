@@ -19,11 +19,12 @@ class ResultListViewController: UICollectionViewController {
     
     private var dataSource: ResultListDataSource?
     private var viewModel: ResultViewModel?
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
         setupCollectionView()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,9 +36,8 @@ class ResultListViewController: UICollectionViewController {
             self?.dataSource?.update(model)
             self?.dataSource?.reloadData()
         })
- 
-        viewModel?.fetch()
         
+        viewModel?.fetch()
         viewModel?.onErrorHandling = { [weak self] alert in
             self?.present(alert, animated: true, completion: nil)
         }
@@ -93,9 +93,9 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         let model = dataSource?.data[indexPath.row]
         
         dummyCell.configCell(model: model!)
-   
+        
         dummyCell.layoutIfNeeded()
- 
+        
         let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
         return CGSize.init(width: width, height: estimatedSize.height)

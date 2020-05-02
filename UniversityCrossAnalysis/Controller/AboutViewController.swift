@@ -13,8 +13,7 @@ import SwiftyStoreKit
 class AboutViewController: UIViewController {
     
     let tableView = UITableView()
-    //private var dataSource: AboutListDataSource?
-    
+  
     func steupTableView() {
         view.addSubview(tableView)
         tableView.fillSuperview()
@@ -27,9 +26,9 @@ class AboutViewController: UIViewController {
     }
     
     var info = [
-        ["贊助一杯飲料🍺"],
+        ["贊助一杯🍺"],
         ["問題回饋⚠️", "給個評價👨‍💻"],
-        ["1.0.6", "作者網站"]
+        ["1.0.7", "作者網站"]
     ]
     
     override func viewDidLoad() {
@@ -118,10 +117,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        //view.tintColor = .red
         view.tintColor = .lightDarkColor
-//        let header = view as! UITableViewHeaderFooterView
-//        header.textLabel?.textColor = .blueColor
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -144,7 +140,7 @@ extension AboutViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         return alert
     }
-
+    
     func alertForPurchaseResult(_ result: PurchaseResult) -> UIAlertController? {
         switch result {
         case .success(let purchase):
