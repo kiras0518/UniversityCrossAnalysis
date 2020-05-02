@@ -79,6 +79,7 @@ extension MainTabBarController: UITabBarControllerDelegate {
 
 
 class TabBarTransition: NSObject, UIViewControllerAnimatedTransitioning {
+    
     let viewControllers: [UIViewController]?
     let transitionDuration: TimeInterval = 0.23
 

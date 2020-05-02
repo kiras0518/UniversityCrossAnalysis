@@ -133,7 +133,7 @@ extension UIColor {
         return UIColor(white: 240.0 / 255.0, alpha: 1.0)
     }
     
-    @nonobjc class var lightDarkPink: UIColor {
+    @nonobjc class var lightDarkColor: UIColor {
         return UIColor(red: 235 / 255.0, green: 237 / 255.0, blue: 247 / 255.0, alpha: 1.0)
     }
     
@@ -198,14 +198,14 @@ public class CustomButton: UIButton {
             if isEnabled {
                 backgroundColor = .greenColor
             } else {
-                backgroundColor = .lightDarkPink
+                backgroundColor = .lightDarkColor
             }
         }
     }
     
     init() {
         super.init(frame: .zero)
-        backgroundColor = .lightDarkPink
+        backgroundColor = .lightDarkColor
         titleLabel?.textColor = .greenColor
         
         layer.cornerRadius = 4

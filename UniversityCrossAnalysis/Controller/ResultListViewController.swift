@@ -15,11 +15,6 @@ protocol ViewControllersFactory {
     static func makeInitateViewController(parameters: Parameters) -> ViewController
 }
 
-//protocol AlertControllersFactory {
-//
-//    static func makeAlertController(title: String, message: String) -> UIAlertController
-//}
-
 class ResultListViewController: UICollectionViewController {
     
     private var dataSource: ResultListDataSource?
@@ -61,7 +56,7 @@ class ResultListViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
         collectionView.dataSource = dataSource
-        collectionView.backgroundColor = .blueColor
+        collectionView.backgroundColor = .lightDarkColor
     }
     
     deinit {
@@ -86,20 +81,6 @@ extension ResultListViewController: ViewControllersFactory {
     
 }
 
-//extension ResultListViewController: AlertControllersFactory {
-//
-//    static func makeAlertController(title: String, message: String) -> UIAlertController {
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-//        alert.addAction(.init(title: "OK", style: .default, handler: { (action) in
-//            //dismiss(animated: true, completion: nil)
-//
-//        }))
-//
-//        return alert
-//    }
-//
-//}
-
 // MARK: - UICollectionViewDelegateFlowLayout
 extension ResultListViewController: UICollectionViewDelegateFlowLayout {
     
@@ -112,30 +93,12 @@ extension ResultListViewController: UICollectionViewDelegateFlowLayout {
         let model = dataSource?.data[indexPath.row]
         
         dummyCell.configCell(model: model!)
+   
+        dummyCell.layoutIfNeeded()
+ 
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
-        //        if let model = dataSource?.data[indexPath.row] {
-        //
-        //            dummyCell.configCell(model: model)
-        //
-        //            dummyCell.layoutIfNeeded()
-        //
-        //            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-        //            print(estimatedSize.height)
-        //
-        //            return CGSize.init(width: view.frame.width, height: estimatedSize.width)
-        //
-        //        } else {
-        //            print("LESE")
-        //        }
-        //        // Get cell size
-        //        dummyCell.setNeedsLayout()
-        //        dummyCell.layoutIfNeeded()
-        ////
-        //        let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-        
-        let size = dummyCell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        
-        return CGSize.init(width: width, height: 320)
+        return CGSize.init(width: width, height: estimatedSize.height)
         
     }
 }

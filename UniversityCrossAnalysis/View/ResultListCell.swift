@@ -139,10 +139,18 @@ class ResultListCell: UICollectionViewCell {
     let viewContraner: UIView = {
         let iv = UIView()
         
-        iv.backgroundColor = .white
+        iv.backgroundColor = .waterBlueColor
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         
+        return iv
+    }()
+    
+    let viewBg: UIView = {
+        let iv = UIView()
+        
+        iv.backgroundColor = .white
+       
         return iv
     }()
     
@@ -154,8 +162,8 @@ class ResultListCell: UICollectionViewCell {
         schoolCodeStack.alignment = .leading
         schoolCodeStack.distribution = .fillEqually
         
-        viewContraner.addSubview(schoolCodeStack)
-        schoolCodeStack.anchor(top: viewContraner.topAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(schoolCodeStack)
+//        schoolCodeStack.anchor(top: viewBg.topAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         let schoolStack = UIStackView(arrangedSubviews: [schoolLabel, school])
         schoolStack.spacing = 10
@@ -163,8 +171,8 @@ class ResultListCell: UICollectionViewCell {
         schoolStack.alignment = .leading
         schoolStack.distribution = .fillEqually
         
-        viewContraner.addSubview(schoolStack)
-        schoolStack.anchor(top: schoolCodeStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(schoolStack)
+//        schoolStack.anchor(top: schoolCodeStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         
         let deptStack = UIStackView(arrangedSubviews: [deptLabel, dept])
@@ -173,8 +181,8 @@ class ResultListCell: UICollectionViewCell {
         deptStack.alignment = .leading
         deptStack.distribution = .fillEqually
         
-        viewContraner.addSubview(deptStack)
-        deptStack.anchor(top: schoolStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(deptStack)
+//        deptStack.anchor(top: schoolStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         
         let salaryStack = UIStackView(arrangedSubviews: [salaryLabel, salary])
@@ -183,8 +191,8 @@ class ResultListCell: UICollectionViewCell {
         salaryStack.alignment = .leading
         salaryStack.distribution = .fillEqually
         
-        viewContraner.addSubview(salaryStack)
-        salaryStack.anchor(top: deptStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(salaryStack)
+//        salaryStack.anchor(top: deptStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         
         let ratioStack = UIStackView(arrangedSubviews: [ratioLabel, ratio])
@@ -193,8 +201,8 @@ class ResultListCell: UICollectionViewCell {
         ratioStack.alignment = .leading
         ratioStack.distribution = .fillEqually
         
-        viewContraner.addSubview(ratioStack)
-        ratioStack.anchor(top: salaryStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(ratioStack)
+//        ratioStack.anchor(top: salaryStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
         
         
         let lastRatioStack = UIStackView(arrangedSubviews: [lastRatioLabel, lastRatio])
@@ -203,8 +211,18 @@ class ResultListCell: UICollectionViewCell {
         lastRatioStack.alignment = .leading
         lastRatioStack.distribution = .fillEqually
         
-        viewContraner.addSubview(lastRatioStack)
-        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewContraner.leadingAnchor, bottom: nil, trailing: viewContraner.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+//        viewBg.addSubview(lastRatioStack)
+//        lastRatioStack.anchor(top: ratioStack.bottomAnchor, leading: viewBg.leadingAnchor, bottom: nil, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 0, right: 8))
+        
+        let fullStack = UIStackView(arrangedSubviews: [schoolCodeStack, schoolStack, deptStack, salaryStack, ratioStack, lastRatioStack])
+        fullStack.spacing = 10
+        fullStack.axis = .vertical
+        fullStack.alignment = .fill
+        fullStack.distribution = .fillEqually
+        
+        viewBg.addSubview(fullStack)
+        fullStack.anchor(top: viewBg.topAnchor, leading: viewBg.leadingAnchor, bottom: viewBg.bottomAnchor, trailing: viewBg.trailingAnchor, padding: .init(top: 18, left: 8, bottom: 8, right: 8))
+        
     }
     
     override init(frame: CGRect) {
@@ -213,6 +231,9 @@ class ResultListCell: UICollectionViewCell {
         addSubview(viewContraner)
         viewContraner.fillSuperview(padding: .init(top: 18, left: 18, bottom: 18, right: 18))
         
+        viewContraner.addSubview(viewBg)
+        viewBg.anchor(top: viewContraner.topAnchor, leading: viewContraner.leadingAnchor, bottom: viewContraner.bottomAnchor, trailing: viewContraner.trailingAnchor, padding: .init(top: 28, left: 0, bottom: 0, right: 0))
+        
         setupStack()
         
     }
@@ -220,7 +241,6 @@ class ResultListCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func layoutSubviews() {
         layer.shadowColor = UIColor.black.withAlphaComponent(0.3).cgColor

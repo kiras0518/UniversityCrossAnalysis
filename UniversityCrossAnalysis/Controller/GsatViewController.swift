@@ -15,7 +15,7 @@ class GsatViewController: UIViewController {
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView(frame: .zero)
         
-        sv.backgroundColor = .lightDarkPink
+        sv.backgroundColor = .lightDarkColor
         sv.frame = self.view.bounds
         sv.contentSize = contentViewSize
         sv.autoresizingMask = .flexibleHeight
@@ -367,7 +367,7 @@ extension GsatViewController {
         let titleColor: UIColor = isEnabled ? .white : .greenColor
         doneButton.isEnabled = isEnabled
         doneButton.setTitleColor(titleColor, for: .normal)
-        doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkPink
+        doneButton.backgroundColor = isEnabled ? .greenColor : .lightDarkColor
         //presentAlert()
     }
     

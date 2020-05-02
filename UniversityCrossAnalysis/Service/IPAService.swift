@@ -114,4 +114,21 @@ class IPAService {
         }
     }
     
+    /// 安裝商店串接
+    func setupAppStore() {
+        SwiftyStoreKit.completeTransactions(atomically: true) { (purchases) in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                case .failed, .purchasing, .deferred:
+                    break
+                default:
+                    ()
+                }
+            }
+        }
+    }
 }

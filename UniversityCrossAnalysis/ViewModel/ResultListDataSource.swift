@@ -54,7 +54,7 @@ extension ResultListDataSource: UICollectionViewDataSource {
         
         let model = data[indexPath.row]
         cell.configCell(model: model)
-        //cell.configCell1(model: [model])
+        
         return cell
     }
 }

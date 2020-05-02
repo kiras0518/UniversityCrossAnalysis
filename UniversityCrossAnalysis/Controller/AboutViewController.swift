@@ -18,7 +18,7 @@ class AboutViewController: UIViewController {
     func steupTableView() {
         view.addSubview(tableView)
         tableView.fillSuperview()
-        tableView.backgroundColor = .lightDarkPink
+        tableView.backgroundColor = .lightDarkColor
         tableView.tableFooterView = UIView()
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.identifier)
         
@@ -115,6 +115,13 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return nil
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        //view.tintColor = .red
+        view.tintColor = .lightDarkColor
+//        let header = view as! UITableViewHeaderFooterView
+//        header.textLabel?.textColor = .blueColor
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

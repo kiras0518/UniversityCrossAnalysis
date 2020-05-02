@@ -28,7 +28,7 @@ class AstViewController: UIViewController {
     lazy var containerChartView: UIView = {
         let iv = UIView()
         
-        iv.backgroundColor = .lightDarkPink
+        iv.backgroundColor = .lightDarkColor
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         
