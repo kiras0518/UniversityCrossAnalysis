@@ -113,12 +113,25 @@ struct AnchoredConstraints {
 }
 
 extension UIColor {
+    
+    @nonobjc class var LightBlue1: UIColor {
+           return UIColor(red: 191 / 255.0, green: 239 / 255.0, blue: 255 / 255.0, alpha: 1.0)
+       }
+    
     @nonobjc class var blueColor: UIColor {
         return UIColor(red: 49 / 255.0, green: 148 / 255.0, blue: 200 / 255.0, alpha: 1.0)
     }
     
+    @nonobjc class var yellorColor: UIColor {
+        return UIColor(red: 249 / 255.0, green: 237 / 255.0, blue: 113 / 255.0, alpha: 1.0)
+    }
+    
     @nonobjc class var orangeColor: UIColor {
         return UIColor(red: 246 / 255.0, green: 174 / 255.0, blue: 45 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var orangeBColor: UIColor {
+        return UIColor(red: 249 / 255.0, green: 169 / 255.0, blue: 113 / 255.0, alpha: 1.0)
     }
     
     @nonobjc class var darkBColor: UIColor {
@@ -129,8 +142,16 @@ extension UIColor {
         return UIColor(red: 62 / 255.0, green: 181 / 255.0, blue: 72 / 255.0, alpha: 1.0)
     }
     
+    @nonobjc class var greenWhiteColor: UIColor {
+        return UIColor(red: 168 / 255.0, green: 216 / 255.0, blue: 185 / 255.0, alpha: 1.0)
+    }
+    
     @nonobjc class var veryLightPink: UIColor {
         return UIColor(white: 240.0 / 255.0, alpha: 1.0)
+    }
+    
+    @nonobjc class var veryLightBColor: UIColor {
+        return UIColor(red: 114 / 255.0, green: 124 / 255.0, blue: 137 / 255.0, alpha: 1.0)
     }
     
     @nonobjc class var lightDarkColor: UIColor {
@@ -156,6 +177,10 @@ extension UIColor {
     @nonobjc class var graylightColor: UIColor {
         return UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 1.0)
     }
+    
+    @nonobjc class var purplelightColor: UIColor {
+        return UIColor(red: 113 / 255.0, green: 125 / 255.0, blue: 249 / 255.0, alpha: 1.0)
+    }
 }
 
 public class CustomButton: UIButton {
@@ -165,7 +190,7 @@ public class CustomButton: UIButton {
         didSet {
             // true
             if isEnabled {
-                backgroundColor = .greenColor
+                backgroundColor = .purplelightColor
             } else {
                 backgroundColor = .lightDarkColor
             }
@@ -175,7 +200,7 @@ public class CustomButton: UIButton {
     init() {
         super.init(frame: .zero)
         backgroundColor = .lightDarkColor
-        titleLabel?.textColor = .greenColor
+        titleLabel?.textColor = .paperBlueColor
         
         layer.cornerRadius = 4
         clipsToBounds = true
@@ -211,7 +236,7 @@ public class Spinner {
             spinner?.style = style
             spinner?.color = baseColor
             window?.addSubview(spinner!)
-            spinner?.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: ScreenConfigs.widthScreenScaleFactor * 150, height: ScreenConfigs.widthScreenScaleFactor * 150))
+            spinner?.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, size: .init(width: ScreenConfigs.widthScreenScaleFactor * 130, height: ScreenConfigs.widthScreenScaleFactor * 130))
             spinner?.centerInSuperview()
             spinner?.layer.backgroundColor = UIColor(red: 179 / 255.0, green: 182 / 255.0, blue: 202 / 255.0, alpha: 0.4).cgColor
             spinner?.layer.cornerRadius = 16

@@ -69,7 +69,8 @@ class UniversityCrossAnalysisUITests: XCTestCase {
         
         scrollViewsQuery.otherElements.buttons["開始分析"].tap()
         
-        element.waitForExistence(timeout: 10)
+        //element.waitForExistence(timeout: 10)
+        sleep(5)
     }
 
     func testLaunchPerformance() {

@@ -71,7 +71,6 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         if itemSection == 0 {
             switch itemRow {
             case 0:
-                print("A")
                 IPAService.shared.executeInAppPurchase()
             default:
                 return
@@ -88,7 +87,7 @@ extension AboutViewController: UITableViewDataSource, UITableViewDelegate {
         } else if itemSection == 2 {
             switch itemRow {
             case 0:
-                print("D")
+                ()
             case 1:
                 AboutService.shared.authorWeb()
             default:
