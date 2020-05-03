@@ -30,6 +30,46 @@ class UniversityCrossAnalysisUITests: XCTestCase {
 
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let scrollViewsQuery = app.scrollViews
+        let element = scrollViewsQuery.children(matching: .other).element(boundBy: 0).children(matching: .other).element
+        element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .textField).element.tap()
+        
+        
+        let chineseTextField = element.children(matching: .other).element(boundBy: 0).children(matching: .other).element.children(matching: .textField).element
+        chineseTextField.tap()
+        chineseTextField.typeText("5")
+      
+        let englishTextField = element.children(matching: .other).element(boundBy: 1).children(matching: .other).element.children(matching: .textField).element
+        englishTextField.tap()
+        englishTextField.typeText("10")
+       
+        let mathTextField = element.children(matching: .other).element(boundBy: 2).children(matching: .other).element.children(matching: .textField).element
+        mathTextField.tap()
+        mathTextField.typeText("7")
+       
+        let socialTextField = element.children(matching: .other).element(boundBy: 3).children(matching: .other).element.children(matching: .textField).element
+        socialTextField.tap()
+        socialTextField.typeText("8")
+        socialTextField.swipeUp()
+
+        let scienceTextField = element.children(matching: .other).element(boundBy: 4).children(matching: .other).element.children(matching: .textField).element
+        scienceTextField.tap()
+        scienceTextField.typeText("9")
+        scienceTextField.tap()
+
+        let listenTextField = element.children(matching: .other).element(boundBy: 5).children(matching: .other).element.children(matching: .textField).element
+        listenTextField.tap()
+        app.pickers.children(matching: .pickerWheel).element.swipeUp()
+        app.toolbars["Toolbar"].buttons["Done"].tap()
+
+        let salaryTextField = element.children(matching: .other).element(boundBy: 6).children(matching: .other).element.children(matching: .textField).element
+        salaryTextField.tap()
+        salaryTextField.typeText("30000")
+        
+        scrollViewsQuery.otherElements.buttons["開始分析"].tap()
+        
+        element.waitForExistence(timeout: 10)
     }
 
     func testLaunchPerformance() {
