@@ -9,6 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import SwiftyStoreKit
+import Bugsnag
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         IPAService.shared.setupAppStore()
+        
+        Bugsnag.start(withApiKey: "f8f457bb55b358c4d082c6f8f5e26cc0")
+        Bugsnag.notifyError(NSError(domain:"com.ameyo.UniversityCrossAnalysis", code:408, userInfo:nil))
         
         return true
     }

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Bugsnag
 
 class RequestService {
     
@@ -44,7 +45,11 @@ class RequestService {
             
         } catch {
             // TODO: need to handle and define some error
-            completion(.failure(error))
+            Bugsnag.notifyError(error) { (report) in
+                report.severity = .info
+                completion(.failure(error))
+            }
+            
         }
     }
     
@@ -63,7 +68,11 @@ class RequestService {
             
         } catch let jsonErr {
             print("Failed to Prediction Decode:", jsonErr)
-            completion(nil, jsonErr)
+            
+            Bugsnag.notifyError(jsonErr) { (report) in
+                report.severity = .info
+                completion(nil, jsonErr)
+            }
         }
     }
     
@@ -148,11 +157,18 @@ class RequestService {
                         completion(resultData, nil)
                     } catch let error {
                         print("decoderError", error)
-                        completion(nil, error)
+                        
+                        Bugsnag.notifyError(error) { (report) in
+                            report.severity = .info
+                            completion(nil, error)
+                        }
                     }
                     
                 case .failure(let error):
                     print("requestError", error)
+                    Bugsnag.notifyError(error) { (report) in
+                        report.severity = .info
+                    }
                 }
         }
     }
@@ -170,7 +186,7 @@ class AboutService {
             UIApplication.shared.openURL(url)
         }
     }
-
+    
     func webApp() {
         guard let url = URL(string : "http://predict.chu.edu.tw/2020/index.html") else { return }
         if #available(iOS 11.0, *) {

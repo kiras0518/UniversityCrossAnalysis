@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.1.0)
+  - Bugsnag (5.23.1)
   - Charts (3.4.0):
     - Charts/Core (= 3.4.0)
   - Charts/Core (3.4.0)
@@ -9,6 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
+  - Bugsnag
   - Charts
   - IQKeyboardManagerSwift
   - SwiftyStoreKit
@@ -17,6 +19,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Bugsnag
     - Charts
     - IQKeyboardManagerSwift
     - SwiftyStoreKit
@@ -24,11 +27,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  Bugsnag: caa15cf2a5d9278f04e1dda70c0cc6d42d3c9625
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   ViewAnimator: 5af1c6f3b310f012bf081259c43717aa54fbae73
 
-PODFILE CHECKSUM: 2163b29b8d4f5a97dc2079e1b6fae9a4562dfe1e
+PODFILE CHECKSUM: b300779d0ca2236bd88d8502dcc797523780e0d3
 
 COCOAPODS: 1.8.4

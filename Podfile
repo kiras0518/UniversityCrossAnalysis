@@ -11,6 +11,7 @@ target 'UniversityCrossAnalysis' do
     pod 'IQKeyboardManagerSwift'
     pod 'ViewAnimator'
     pod 'SwiftyStoreKit'
+    pod 'Bugsnag'
     
   target 'UniversityCrossAnalysisTests' do
     inherit! :search_paths
